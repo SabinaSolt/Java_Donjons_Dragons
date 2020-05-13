@@ -1,8 +1,8 @@
 package main;
 
-public class Hero {
+public abstract class Hero {
     //state of an object
-    protected String name="Hero";
+    protected String name;
     protected String image="image.jpg";
     protected int niveauVie=5;
     protected int force=8;
@@ -16,13 +16,14 @@ public class Hero {
     public Hero(String name) {
         this.name=name;
     }
-//    public Hero(String name, String image, int niveauVie, int force)
-//    {
-//        this.name=name;
-//        this.image=image;
-//        this.niveauVie=niveauVie;
-//        this.force=force;
-//    }
+
+    public Hero(String name, String image, int niveauVie, int force)
+    {
+        this.name=name;
+        this.image=image;
+        this.niveauVie=niveauVie;
+        this.force=force;
+    }
 
 //Setters
 
@@ -77,12 +78,11 @@ public class Hero {
 
 
     //behavior of an object
-    public void printValues() {
-        System.out.println("Name: "+this.name);
-        System.out.println("Vie: "+this.niveauVie);
-        System.out.println("Force: "+this.force);
-        System.out.println("Attack: "+this.attack);
-        System.out.println("Protection: "+this.protection);
+    @Override
+    public String toString() {
+        String str="Name: "+this.name+"\nVie: "+this.niveauVie+"\nForce: "+this.force;
+        return str;
+
     }
 }
 
