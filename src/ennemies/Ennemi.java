@@ -15,6 +15,10 @@ public abstract class Ennemi extends Case {
         return force;
     }
 
+    public boolean isDead() {
+        return dead;
+    }
+
     @Override
     public String toString() {
         String str="Tu tombes sur un ennemi! \nName: "+this.name+"\nVie: "+this.niveauVie+"\nForce: "+this.force;

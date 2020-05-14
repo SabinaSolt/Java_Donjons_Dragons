@@ -8,8 +8,8 @@ public abstract class Hero {
     //state of an object
     protected String name;
     protected String image="image.jpg";
-    protected int niveauVie=5;
-    protected int force=8;
+    protected int niveauVie;
+    protected int force;
     protected Arme arme;
     protected String protection;
     protected  int forceMax;
@@ -105,15 +105,15 @@ public abstract class Hero {
 
      public void augmenterAttaque(Arme arme) {
         this.arme =arme;
-        this.force+=arme.getForceAttack();
+        this.force=this.force+arme.getForceAttack();
         if(this.force>this.forceMax) {
             this.force=this.forceMax;
         }
          System.out.println("Wow, tu es devenu super balaise! Ta force passe à "+this.force);
      }
 
-     public void seguerir(Potion potion) {
-        this.niveauVie+=potion.getHealingPower();
+     public void seguerir(int healing) {
+        this.niveauVie=this.niveauVie+healing;
         if(this.niveauVie>this.vieMax) {
             this.niveauVie=this.vieMax;
         }

@@ -21,7 +21,7 @@ public abstract class Potion extends Case {
     }
 
     public void interagir(Hero hero) {
-        hero.seguerir(this);
+        hero.seguerir(this.healingPower);
     }
 
 }

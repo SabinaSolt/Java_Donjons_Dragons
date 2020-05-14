@@ -58,6 +58,8 @@ public class Menu {
 
         QuitGame();
         do {
+            if(personnage.isDead()) {System.exit(0);}
+
             System.out.println("La case courante:" + plateau.getNumeroCaseCourante());
             System.out.println("Pour lancer le dés tapez De");
             String response = sc.nextLine();
@@ -83,7 +85,7 @@ public class Menu {
                     plateau.getCase(indice).interagir(personnage);
 
             }
-        } while (plateau.getNumeroCaseCourante() < plateau.getDerniereCase());
+        } while (plateau.getNumeroCaseCourante() < plateau.getDerniereCase() );
         System.out.println("Yopeee!" + personnage.getName() + "a gagné");
     }
 
