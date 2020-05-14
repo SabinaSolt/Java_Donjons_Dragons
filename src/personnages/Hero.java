@@ -1,4 +1,8 @@
-package main;
+package personnages;
+
+import armes.*;
+import potions.*;
+import ennemies.*;
 
 public abstract class Hero {
     //state of an object
@@ -6,9 +10,11 @@ public abstract class Hero {
     protected String image="image.jpg";
     protected int niveauVie=5;
     protected int force=8;
-    protected String attack;
+    protected Arme arme;
     protected String protection;
-
+    protected  int forceMax;
+    protected int vieMax;
+    protected boolean dead;
 
     //constructor method
     public Hero() {
@@ -43,8 +49,8 @@ public abstract class Hero {
         this.force = force;
     }
 
-    public void setAttack(String attack) {
-        this.attack = attack;
+    public void setArme(Arme arme) {
+        this.arme = arme;
     }
 
     public void setProtection(String protection) {
@@ -68,8 +74,8 @@ public abstract class Hero {
         return force;
     }
 
-    public String getAttack() {
-        return attack;
+    public Arme getArme() {
+        return arme;
     }
 
     public String getProtection() {
@@ -82,8 +88,35 @@ public abstract class Hero {
     public String toString() {
         String str="Name: "+this.name+"\nVie: "+this.niveauVie+"\nForce: "+this.force;
         return str;
-
     }
+
+     public void augmenterAttaque(Arme arme) {
+        this.arme =arme;
+        this.force+=arme.getForceAttack();
+        if(this.force>this.forceMax) {
+            this.force=this.forceMax;
+        }
+     }
+
+     public void seguerir(Potion potion) {
+        this.niveauVie+=potion.getHealingPower();
+        if(this.niveauVie>this.vieMax) {
+            this.niveauVie=this.vieMax;
+        }
+     }
+
+
+     public void attaquer(Ennemi ennemi) {
+        ennemi.subirDommage(this.force);
+     }
+
+    public void subirDommage(int force) {
+        this.niveauVie-=force;
+        if (this.niveauVie<=0) {
+            this.dead=true;
+        }
+    }
+
 }
 
 

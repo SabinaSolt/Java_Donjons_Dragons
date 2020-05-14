@@ -1,18 +1,22 @@
-package main;
+package personnages;
 
-public class Guerrier extends Hero{
+public class Guerrier extends Hero {
 
     //constructor method
     public Guerrier() {
         this.name="Guerrier";
         this.niveauVie=5+(int)(Math.random()*5);
         this.force=5+(int)(Math.random()*5);
+        this.forceMax=10;
+        this.vieMax =10;
 
     }
     public Guerrier(String name) {
         this.name=name;
         this.niveauVie=5+(int)(Math.random()*5);
         this.force=5+(int)(Math.random()*5);
+        this.forceMax=10;
+        this.vieMax =10;
     }
 
 
@@ -20,10 +24,11 @@ public class Guerrier extends Hero{
     @Override
     public String toString() {
         String str=super.toString()+"\nArme: "
-                +this.attack+"\nBouclier: "+this.protection;;
+                +this.arme +"\nBouclier: "+this.protection;;
 
         return str;
 
     }
+
 
 }

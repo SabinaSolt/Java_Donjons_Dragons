@@ -1,9 +1,11 @@
 package main;
 
+import exceptions.PersonnageHorsPlateauException;
+
 public class Plateau {
     protected int derniereCase=64;
     protected int premiereCase=1;
-    protected int caseCourante=64;
+    protected int caseCourante=1;
 
     public Plateau() {
     }
@@ -24,7 +26,7 @@ public class Plateau {
     }
 
     //Setters
-    public void setCaseCourante(int nombrePas)  throws PersonnageHorsPlateauException{
+    public void setCaseCourante(int nombrePas)  throws PersonnageHorsPlateauException {
 
         this.caseCourante = this.caseCourante+nombrePas;
 
