@@ -1,14 +1,11 @@
 package armes;
 
-public abstract class Arme {
+import main.Case;
 
-protected String name;
+public abstract class Arme extends Case {
+
+
 protected int forceAttack;
-
-//Getters
-    public String getName() {
-        return name;
-    }
 
     public int getForceAttack() {
         return forceAttack;
@@ -17,7 +14,7 @@ protected int forceAttack;
  //toString
  @Override
  public String toString() {
-     String str="Name: "+this.name+"\nForce d'attaque: "+this.forceAttack;
+     String str="Tu trouves une arme! \nName: "+this.name+"\nForce d'attaque: "+this.forceAttack;
      return str;
  }
 }

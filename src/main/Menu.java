@@ -1,7 +1,9 @@
 package main;
 
+import java.util.ListIterator;
 import java.util.Scanner;
 
+import ennemies.Dragon;
 import exceptions.PersonnageHorsPlateauException;
 import personnages.*;
 public class Menu {
@@ -52,9 +54,11 @@ public class Menu {
 
     public void JouerPartie(Hero personnage, Scanner sc) {
         Plateau plateau = new Plateau();
+
+
         QuitGame();
         do {
-            System.out.println("La case courante:" + plateau.caseCourante);
+            System.out.println("La case courante:" + plateau.getNumeroCaseCourante());
             System.out.println("Pour lancer le dés tapez De");
             String response = sc.nextLine();
 
@@ -62,15 +66,24 @@ public class Menu {
                 System.exit(0);
             } else if (response.equals("De")) {
                 int de = 1 + (int) (Math.random() * 6);
+
                 System.out.println("Le dé fait " + de + " points");
                 try {
                     plateau.setCaseCourante(de);
+
+
                 } catch (PersonnageHorsPlateauException e) {
                     e.getMessage();
                 }
-                System.out.println(personnage.getName() + " avance à la case " + plateau.caseCourante);
+                System.out.println(personnage.getName() + " avance à la case " + plateau.getNumeroCaseCourante());
+                int indice=plateau.getNumeroCaseCourante()-1;
+
+
+                    System.out.println(plateau.getCase(indice).toString());
+                    plateau.getCase(indice).interagir(personnage);
+
             }
-        } while (plateau.caseCourante < 64);
+        } while (plateau.getNumeroCaseCourante() < plateau.getDerniereCase());
         System.out.println("Yopeee!" + personnage.getName() + "a gagné");
     }
 

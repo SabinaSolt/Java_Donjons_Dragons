@@ -20,8 +20,18 @@ public abstract class Hero {
     public Hero() {
     }
     public Hero(String name) {
-        this.name=name;
+        this(name, 0, 0);
+//        this.name=name;
+
     }
+
+    public Hero(String name, int niveauVie, int force)
+    {
+        this.name=name;
+        this.niveauVie=niveauVie;
+        this.force=force;
+    }
+
 
     public Hero(String name, String image, int niveauVie, int force)
     {
@@ -82,6 +92,9 @@ public abstract class Hero {
         return protection;
     }
 
+    public boolean isDead() {
+        return dead;
+    }
 
     //behavior of an object
     @Override
@@ -96,6 +109,7 @@ public abstract class Hero {
         if(this.force>this.forceMax) {
             this.force=this.forceMax;
         }
+         System.out.println("Wow, tu es devenu super balaise! Ta force passe à "+this.force);
      }
 
      public void seguerir(Potion potion) {
@@ -103,17 +117,23 @@ public abstract class Hero {
         if(this.niveauVie>this.vieMax) {
             this.niveauVie=this.vieMax;
         }
+         System.out.println("Ton niveau de vie passe à "+this.niveauVie);
      }
 
 
      public void attaquer(Ennemi ennemi) {
+        System.out.println("Tu attaques "+ennemi.getName()+" avec la force de " +this.force);
         ennemi.subirDommage(this.force);
      }
 
     public void subirDommage(int force) {
+
         this.niveauVie-=force;
         if (this.niveauVie<=0) {
             this.dead=true;
+            System.out.println("Mince, tu es mort!");
+        } else {
+            System.out.println("Ton niveau de vie passe à "+this.niveauVie);
         }
     }
 
