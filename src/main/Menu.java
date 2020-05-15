@@ -77,7 +77,9 @@ public class Menu {
             if (personnage.isDead()) {
                 System.exit(0);
             }
+            //Compter les tours en mode debug
             if (modeDebug) {
+                plateau.toString();
                 if (compteurTourDebug < this.deDebug.length) {
                     compteurTourDebug++;
                 } else {
@@ -95,11 +97,14 @@ public class Menu {
             } else if (response.equals("De")) {
                 int de = (modeDebug) ? this.deDebug[compteurTourDebug - 1] : (1 + (int) (Math.random() * 6));
                 System.out.println("Le dé fait " + de + " points");
+
+                //bouger le personnage sur la nouvelle case
                 try {
                     plateau.setCaseCourante(de);
                 } catch (PersonnageHorsPlateauException e) {
                     e.getMessage();
                 }
+
                 System.out.println(personnage.getName() + " avance à la case " + plateau.getNumeroCaseCourante());
                 int indice = plateau.getNumeroCaseCourante() - 1;
                 System.out.println(plateau.getCase(indice).toString());
