@@ -1,14 +1,9 @@
 package main;
 
-import armes.BouleFeu;
-import armes.Eclair;
-import armes.Epee;
-import armes.Massue;
+import armes.*;
 import ennemies.*;
-
+import potions.*;
 import exceptions.PersonnageHorsPlateauException;
-import potions.PotionGrande;
-import potions.PotionStandard;
 
 import java.util.ArrayList;
 
@@ -91,6 +86,9 @@ public class Plateau {
                 case 41:
                     listCases.add(new PotionGrande());
                     break;
+                case 64:
+                    listCases.add(new DernierCase());
+                    break;
                 default:
                     listCases.add(new CaseVide());
 
@@ -104,16 +102,12 @@ public class Plateau {
     public int getDerniereCase() {
         return derniereCase;
     }
-
     public int getPremiereCase() {
         return premiereCase;
     }
-
-
     public int getNumeroCaseCourante() {
         return caseCourante;
     }
-
     public Case getCase(int index) {
 
         if (index < 0 & index > derniereCase) {
@@ -124,9 +118,7 @@ public class Plateau {
 
     //Setters
     public void setCaseCourante(int nombrePas) throws PersonnageHorsPlateauException {
-
         this.caseCourante = this.caseCourante + nombrePas;
-
         if (this.caseCourante > derniereCase) {
             this.caseCourante = derniereCase;
             throw new PersonnageHorsPlateauException();

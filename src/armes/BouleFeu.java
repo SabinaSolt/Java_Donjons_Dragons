@@ -1,13 +1,11 @@
 package armes;
 
-import personnages.Hero;
-import personnages.Magicien;
+import personnages.*;
 
 public class BouleFeu extends Arme {
     public BouleFeu() {
         this.name = "Boule de feu";
         this.forceAttack = 7;
-
     }
 
     public void interagir(Hero hero) {

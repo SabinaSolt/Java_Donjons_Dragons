@@ -1,7 +1,6 @@
 package armes;
 
-import personnages.Guerrier;
-import personnages.Hero;
+import personnages.*;
 
 public class Massue extends Arme{
     public Massue() {

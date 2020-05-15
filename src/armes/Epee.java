@@ -1,8 +1,6 @@
 package armes;
 
-import personnages.Guerrier;
-import personnages.Hero;
-import personnages.Magicien;
+import personnages.*;
 
 public class Epee extends Arme{
     public Epee() {

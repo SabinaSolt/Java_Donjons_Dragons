@@ -1,6 +1,6 @@
 package main;
 
-import personnages.Hero;
+import personnages.*;
 
 public class CaseVide extends Case{
 
@@ -14,6 +14,6 @@ public class CaseVide extends Case{
     }
 
     public void interagir (Hero hero) {
-        System.out.println("Tu as de la chance, "+hero.getName()+"! Je suis vide!");
+        System.out.println("Tranquilou "+hero.getName()+"! La case est vide!");
     }
 }

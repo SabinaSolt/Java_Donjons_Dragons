@@ -1,8 +1,8 @@
 package potions;
 
-import main.Case;
-import personnages.Guerrier;
-import personnages.Hero;
+import main.*;
+import personnages.*;
+
 
 public abstract class Potion extends Case {
 

@@ -1,7 +1,6 @@
 package armes;
 
-import personnages.Hero;
-import personnages.Magicien;
+import personnages.*;
 
 public class Eclair extends Arme {
     public Eclair() {

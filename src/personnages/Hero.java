@@ -108,16 +108,22 @@ public abstract class Hero {
         this.force=this.force+arme.getForceAttack();
         if(this.force>this.forceMax) {
             this.force=this.forceMax;
+            System.out.println("Tu es gonflé à bloc. Ta force est à son max "+this.force);
+        } else {
+            System.out.println("Wow, tu es devenu super balaise! Ta force passe à "+this.force);
         }
-         System.out.println("Wow, tu es devenu super balaise! Ta force passe à "+this.force);
+
      }
 
      public void seguerir(int healing) {
         this.niveauVie=this.niveauVie+healing;
         if(this.niveauVie>this.vieMax) {
             this.niveauVie=this.vieMax;
+            System.out.println("Tu es au top de ta forme! Ta vie est au zenith: "+this.niveauVie);
+        } else {
+            System.out.println("Ton niveau de vie passe à "+this.niveauVie);
         }
-         System.out.println("Ton niveau de vie passe à "+this.niveauVie);
+
      }
 
 

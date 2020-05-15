@@ -4,7 +4,6 @@ import main.Case;
 
 public abstract class Arme extends Case {
 
-
 protected int forceAttack;
 
     public int getForceAttack() {

@@ -1,5 +1,5 @@
 package ennemies;
- import main.Case;
+ import main.*;
  import personnages.*;
 public abstract class Ennemi extends Case {
 

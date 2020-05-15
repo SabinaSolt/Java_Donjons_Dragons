@@ -1,6 +1,6 @@
 package main;
 
-import personnages.Hero;
+import personnages.*;
 
 public abstract class Case {
     protected String name;
