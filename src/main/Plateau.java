@@ -6,7 +6,7 @@ import potions.*;
 import exceptions.PersonnageHorsPlateauException;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+/**/
 
 public class Plateau {
     private int derniereCase = 64;
@@ -22,52 +22,7 @@ public class Plateau {
         // initie le plateau avec les cases vides
         for (int i = 0; i < derniereCase; i++) {
             listCases.add(new CaseVide());
-        }
-        listCases.set(derniereCase-1, new DernierCase());
-
-        // Disposer les cases spéciales sur le plateau d'une manière aléatoire
-        //Parcours les tableaux des cases spéciales
-        for(int i=0; i<maxCaseSpec.length; i++) {
-            //Boucle répetée jusqu'à ce que le nombre des cases spéc atteigne son max
-            do {
-                int caseAleatoire = (int) (Math.random() * 63);
-
-                if(listCases.get(caseAleatoire) instanceof CaseVide) {
-                    switch(typeCaseSpec[i]) {
-                        case "Dragon":
-                            listCases.set(caseAleatoire, new Dragon());
-                            break;
-                        case "Sorcier":
-                            listCases.set(caseAleatoire, new Sorcier());
-                            break;
-                        case "Gobelin":
-                            listCases.set(caseAleatoire, new Gobelin());
-                            break;
-                        case "Massue":
-                            listCases.set(caseAleatoire, new Massue());
-                            break;
-                        case "Epee":
-                            listCases.set(caseAleatoire, new Epee());
-                            break;
-                        case "Eclair":
-                            listCases.set(caseAleatoire, new Eclair());
-                            break;
-                        case "BouleFeu":
-                            listCases.set(caseAleatoire, new BouleFeu());
-                            break;
-                        case "PotionStandard":
-                            listCases.set(caseAleatoire, new PotionStandard());
-                            break;
-                        case "PotionGrande":
-                            listCases.set(caseAleatoire, new PotionGrande());
-                            break;
-                    }
-                    compteurCaseSpec[i]=compteurCaseSpec[i]+1;
-                }
-            } while (compteurCaseSpec[i]<maxCaseSpec[i]);
-        }
-
-        // Switch commenté
+            // Switch commenté
 //            switch (i + 1) {
 //                case 45:
 //                case 52:
@@ -141,6 +96,54 @@ public class Plateau {
 //                    break;
 //                default:
 //                    listCases.add(new CaseVide());
+            
+        }
+
+        listCases.set(derniereCase-1, new DernierCase());
+
+        // Disposer les cases spéciales sur le plateau d'une manière aléatoire
+        //Parcours les tableaux des cases spéciales
+        for(int i=0; i<maxCaseSpec.length; i++) {
+            //Boucle répetée jusqu'à ce que le nombre des cases spéc atteigne son max
+            do {
+                int caseAleatoire = (int) (Math.random() * 63);
+
+                if(listCases.get(caseAleatoire) instanceof CaseVide) {
+                    switch(typeCaseSpec[i]) {
+                        case "Dragon":
+                            listCases.set(caseAleatoire, new Dragon());
+                            break;
+                        case "Sorcier":
+                            listCases.set(caseAleatoire, new Sorcier());
+                            break;
+                        case "Gobelin":
+                            listCases.set(caseAleatoire, new Gobelin());
+                            break;
+                        case "Massue":
+                            listCases.set(caseAleatoire, new Massue());
+                            break;
+                        case "Epee":
+                            listCases.set(caseAleatoire, new Epee());
+                            break;
+                        case "Eclair":
+                            listCases.set(caseAleatoire, new Eclair());
+                            break;
+                        case "BouleFeu":
+                            listCases.set(caseAleatoire, new BouleFeu());
+                            break;
+                        case "PotionStandard":
+                            listCases.set(caseAleatoire, new PotionStandard());
+                            break;
+                        case "PotionGrande":
+                            listCases.set(caseAleatoire, new PotionGrande());
+                            break;
+                    }
+                    compteurCaseSpec[i]=compteurCaseSpec[i]+1;
+                }
+            } while (compteurCaseSpec[i]<maxCaseSpec[i]);
+        }
+
+
     }
 
     //Getters

@@ -72,6 +72,7 @@ public class Menu {
 
     public void JouerPartie(Hero personnage, Scanner sc) {
         Plateau plateau = new Plateau();
+        if (modeDebug) plateau.toString();
         int compteurTourDebug = 0;
         do {
             if (personnage.isDead()) {
@@ -79,7 +80,7 @@ public class Menu {
             }
             //Compter les tours en mode debug
             if (modeDebug) {
-                plateau.toString();
+
                 if (compteurTourDebug < this.deDebug.length) {
                     compteurTourDebug++;
                 } else {

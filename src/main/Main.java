@@ -10,6 +10,5 @@ public class Main {
         Hero personnage= menu.ChoixPersonnage(sc);
         menu.ModifierPersonnage(personnage, sc);
         menu.DemarrerPartie(personnage, sc);
-
     }
 }
