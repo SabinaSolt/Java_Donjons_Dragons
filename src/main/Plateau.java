@@ -12,10 +12,10 @@ public class Plateau {
     private int derniereCase = 64;
     private int caseCourante = 1;
     private ArrayList<Case> listCases;
-    private String[] typeCaseSpec={"Dragon", "Sorcier", "Gobelin", "Massue", "Epee",
-    "Eclair", "BouleFeu", "PotionStandard", "PotionGrande"};
-    private int[] maxCaseSpec={4,10,10,5,4,5,2,6,2};
-    private int[] compteurCaseSpec={0,0,0,0,0,0,0,0,0};
+//    private String[] typeCaseSpec={"Dragon", "Sorcier", "Gobelin", "Massue", "Epee",
+//    "Eclair", "BouleFeu", "PotionStandard", "PotionGrande"};
+//    private int[] maxCaseSpec={4,10,10,5,4,5,2,6,2};
+//    private int[] compteurCaseSpec={0,0,0,0,0,0,0,0,0};
 
     public Plateau() {
         this.listCases = new ArrayList();
@@ -103,47 +103,50 @@ public class Plateau {
 
         // Disposer les cases spéciales sur le plateau d'une manière aléatoire
         //Parcours les tableaux des cases spéciales
-        for(int i=0; i<maxCaseSpec.length; i++) {
+        //for(int i=0; i<maxCaseSpec.length; i++)
+        for(ListCaseSpec caseK : ListCaseSpec.values()) {
             //Boucle répetée jusqu'à ce que le nombre des cases spéc atteigne son max
             do {
                 int caseAleatoire = (int) (Math.random() * 63);
+                if (listCases.get(caseAleatoire) instanceof CaseVide) {
+                    listCases.set(caseAleatoire, caseK.getCaseACreer());
 
-                if(listCases.get(caseAleatoire) instanceof CaseVide) {
-                    switch(typeCaseSpec[i]) {
-                        case "Dragon":
-                            listCases.set(caseAleatoire, new Dragon());
-                            break;
-                        case "Sorcier":
-                            listCases.set(caseAleatoire, new Sorcier());
-                            break;
-                        case "Gobelin":
-                            listCases.set(caseAleatoire, new Gobelin());
-                            break;
-                        case "Massue":
-                            listCases.set(caseAleatoire, new Massue());
-                            break;
-                        case "Epee":
-                            listCases.set(caseAleatoire, new Epee());
-                            break;
-                        case "Eclair":
-                            listCases.set(caseAleatoire, new Eclair());
-                            break;
-                        case "BouleFeu":
-                            listCases.set(caseAleatoire, new BouleFeu());
-                            break;
-                        case "PotionStandard":
-                            listCases.set(caseAleatoire, new PotionStandard());
-                            break;
-                        case "PotionGrande":
-                            listCases.set(caseAleatoire, new PotionGrande());
-                            break;
-                    }
-                    compteurCaseSpec[i]=compteurCaseSpec[i]+1;
+//                    switch(typeCaseSpec[i]) {
+//                        case "Dragon":
+//                            listCases.set(caseAleatoire, new Dragon());
+//                            break;
+//                        case "Sorcier":
+//                            listCases.set(caseAleatoire, new Sorcier());
+//                            break;
+//                        case "Gobelin":
+//                            listCases.set(caseAleatoire, new Gobelin());
+//                            break;
+//                        case "Massue":
+//                            listCases.set(caseAleatoire, new Massue());
+//                            break;
+//                        case "Epee":
+//                            listCases.set(caseAleatoire, new Epee());
+//                            break;
+//                        case "Eclair":
+//                            listCases.set(caseAleatoire, new Eclair());
+//                            break;
+//                        case "BouleFeu":
+//                            listCases.set(caseAleatoire, new BouleFeu());
+//                            break;
+//                        case "PotionStandard":
+//                            listCases.set(caseAleatoire, new PotionStandard());
+//                            break;
+//                        case "PotionGrande":
+//                            listCases.set(caseAleatoire, new PotionGrande());
+//                            break;
+//                    }
+
+                    //   compteurCaseSpec[i]=compteurCaseSpec[i]+1;
+                    caseK.incrementCompteurCase();
                 }
-            } while (compteurCaseSpec[i]<maxCaseSpec[i]);
+                // } while (compteurCaseSpec[i]<maxCaseSpec[i]);
+            } while (caseK.getCompteurCase()<caseK.getMaxCase());
         }
-
-
     }
 
     //Getters
