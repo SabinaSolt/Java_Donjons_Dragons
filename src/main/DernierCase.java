@@ -2,7 +2,13 @@ package main;
 import personnages.*;
 public class DernierCase extends Case{
     DernierCase() {
+        this(0);
+
+    }
+
+    DernierCase(int numeroCase) {
         this.name="La Case du Salut";
+        this.numeroCase=numeroCase;
     }
 
     @Override

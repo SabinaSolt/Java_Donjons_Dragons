@@ -1,6 +1,8 @@
 package ennemies;
- import main.*;
- import personnages.*;
+
+import main.*;
+import personnages.*;
+
 public abstract class Ennemi extends Case {
 
     protected int niveauVie;
@@ -11,6 +13,7 @@ public abstract class Ennemi extends Case {
     public int getNiveauVie() {
         return niveauVie;
     }
+
     public int getForce() {
         return force;
     }
@@ -21,27 +24,31 @@ public abstract class Ennemi extends Case {
 
     @Override
     public String toString() {
-        String str="Tu tombes sur un ennemi! \nName: "+this.name+"\nVie: "+this.niveauVie+"\nForce: "+this.force;
+        String str = "Tu tombes sur un ennemi! \nName: " + this.name + "\nVie: " + this.niveauVie + "\nForce: " + this.force +
+                "\n Numero de la case ennemi " + this.numeroCase;
         return str;
     }
 
     public void attaquer(Hero hero) {
-        System.out.println(this.name+" t'attaque avec la force de " +this.force);
+        System.out.println(this.name + " t'a attaqué avec la force de " + this.force);
         hero.subirDommage(this.force);
     }
 
     public void subirDommage(int force) {
-        this.niveauVie-=force;
-        if (this.niveauVie<=0) {
-            this.dead=true;
+        this.niveauVie -= force;
+        if (this.niveauVie <= 0) {
+            this.niveauVie = 0;
+            this.dead = true;
             System.out.println("Tu as tué ton ennemi!");
         } else {
-            System.out.println("Le niveau de vie de "+this.name+ " passe à "+this.niveauVie);
+            System.out.println("Le niveau de vie de " + this.name + " passe à " + this.niveauVie);
+
         }
+
     }
 
     public void interagir(Hero hero) {
-       hero.attaquer(this);
-       this.attaquer(hero);
+        hero.decisionHero(this);
+
     }
 }

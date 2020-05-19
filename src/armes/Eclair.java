@@ -4,9 +4,14 @@ import personnages.*;
 
 public class Eclair extends Arme {
     public Eclair() {
+        this(0);
+    }
+    public Eclair(int numeroCase) {
+        this.numeroCase=numeroCase;
         this.name="Eclair";
         this.forceAttack=2;
     }
+
     public void interagir(Hero hero) {
         if(hero instanceof Magicien) {
             hero.augmenterAttaque(this);

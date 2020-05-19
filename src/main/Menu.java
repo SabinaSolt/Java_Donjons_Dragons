@@ -89,7 +89,7 @@ public class Menu {
                 }
             }
 
-            System.out.println("La case courante:" + plateau.getNumeroCaseCourante());
+            System.out.println("La case courante:" + personnage.getNumeroCaseCourante());
             System.out.println("Pour lancer le dés tapez De");
             String response = sc.nextLine();
 
@@ -101,16 +101,16 @@ public class Menu {
 
                 //bouger le personnage sur la nouvelle case
                 try {
-                    plateau.setCaseCourante(de);
+                    personnage.setCaseCourante(de);
                 } catch (PersonnageHorsPlateauException e) {
                     e.getMessage();
                 }
 
-                System.out.println(personnage.getName() + " avance à la case " + plateau.getNumeroCaseCourante());
-                int indice = plateau.getNumeroCaseCourante() - 1;
+                System.out.println(personnage.getName() + " avance à la case " + personnage.getNumeroCaseCourante());
+                int indice = personnage.getNumeroCaseCourante() - 1;
                 System.out.println(plateau.getCase(indice).toString());
                 plateau.getCase(indice).interagir(personnage);
             }
-        } while (plateau.getNumeroCaseCourante() < plateau.getDerniereCase());
+        } while (personnage.getNumeroCaseCourante() < plateau.getDerniereCase());
     }
 }

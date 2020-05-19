@@ -1,44 +1,48 @@
 package personnages;
 
 import armes.*;
+import exceptions.PersonnageHorsPlateauException;
 import potions.*;
 import ennemies.*;
+
+import java.util.Scanner;
 
 public abstract class Hero {
     //state of an object
     protected String name;
-    protected String image="image.jpg";
+    protected String image = "image.jpg";
     protected int niveauVie;
     protected int force;
     protected Arme arme;
     protected String protection;
-    protected  int forceMax;
+    protected int forceMax;
     protected int vieMax;
     protected boolean dead;
+    protected int caseCourante = 1;
+    protected int derniereCase = 64;
 
     //constructor method
     public Hero() {
     }
+
     public Hero(String name) {
         this(name, 0, 0);
 //        this.name=name;
 
     }
 
-    public Hero(String name, int niveauVie, int force)
-    {
-        this.name=name;
-        this.niveauVie=niveauVie;
-        this.force=force;
+    public Hero(String name, int niveauVie, int force) {
+        this.name = name;
+        this.niveauVie = niveauVie;
+        this.force = force;
     }
 
 
-    public Hero(String name, String image, int niveauVie, int force)
-    {
-        this.name=name;
-        this.image=image;
-        this.niveauVie=niveauVie;
-        this.force=force;
+    public Hero(String name, String image, int niveauVie, int force) {
+        this.name = name;
+        this.image = image;
+        this.niveauVie = niveauVie;
+        this.force = force;
     }
 
 //Setters
@@ -67,6 +71,13 @@ public abstract class Hero {
         this.protection = protection;
     }
 
+    public void setCaseCourante(int nombrePas) throws PersonnageHorsPlateauException {
+        this.caseCourante = this.caseCourante + nombrePas;
+        if (this.caseCourante > derniereCase) {
+            this.caseCourante = derniereCase;
+            throw new PersonnageHorsPlateauException();
+        }
+    }
 
 // Getters
 
@@ -77,9 +88,11 @@ public abstract class Hero {
     public String getImage() {
         return image;
     }
+
     public int getNiveauVie() {
         return niveauVie;
     }
+
     public int getForce() {
         return force;
     }
@@ -96,50 +109,79 @@ public abstract class Hero {
         return dead;
     }
 
+    public int getNumeroCaseCourante() {
+        return caseCourante;
+    }
+
     //behavior of an object
     @Override
     public String toString() {
-        String str="Name: "+this.name+"\nVie: "+this.niveauVie+"\nForce: "+this.force;
+        String str = "Name: " + this.name + "\nVie: " + this.niveauVie + "\nForce: " + this.force;
         return str;
     }
 
-     public void augmenterAttaque(Arme arme) {
-        this.arme =arme;
-        this.force=this.force+arme.getForceAttack();
-        if(this.force>this.forceMax) {
-            this.force=this.forceMax;
-            System.out.println("Tu es gonflé à bloc. Ta force est à son max "+this.force);
+    public void augmenterAttaque(Arme arme) {
+        this.arme = arme;
+        this.force = this.force + arme.getForceAttack();
+        if (this.force > this.forceMax) {
+            this.force = this.forceMax;
+            System.out.println("Tu es gonflé à bloc. Ta force est à son max " + this.force);
         } else {
-            System.out.println("Wow, tu es devenu super balaise! Ta force passe à "+this.force);
+            System.out.println("Wow, tu es devenu super balaise! Ta force passe à " + this.force);
         }
 
-     }
+    }
 
-     public void seguerir(int healing) {
-        this.niveauVie=this.niveauVie+healing;
-        if(this.niveauVie>this.vieMax) {
-            this.niveauVie=this.vieMax;
-            System.out.println("Tu es au top de ta forme! Ta vie est au zenith: "+this.niveauVie);
+    public void seguerir(int healing) {
+        this.niveauVie = this.niveauVie + healing;
+        if (this.niveauVie > this.vieMax) {
+            this.niveauVie = this.vieMax;
+            System.out.println("Tu es au top de ta forme! Ta vie est au zenith: " + this.niveauVie);
         } else {
-            System.out.println("Ton niveau de vie passe à "+this.niveauVie);
+            System.out.println("Ton niveau de vie passe à " + this.niveauVie);
         }
 
-     }
+    }
 
 
-     public void attaquer(Ennemi ennemi) {
-        System.out.println("Tu attaques "+ennemi.getName()+" avec la force de " +this.force);
+    public void attaquer(Ennemi ennemi) {
+        System.out.println("Tu attaques " + ennemi.getName() + " avec la force de " + this.force);
         ennemi.subirDommage(this.force);
-     }
+    }
+
+    public void fuir() {
+        int caseRecule = 1 + (int) (Math.random() * 6);
+        System.out.println("Tu fuis ton ennemi. Le destin te fais reculer de " + caseRecule+" cases");
+        this.caseCourante = this.caseCourante - caseRecule;
+        if (this.caseCourante < 1) {
+            this.caseCourante = 1;
+        }
+
+        System.out.println("Tu retournes à la case " +this.caseCourante);
+    }
+
+    public void decisionHero(Ennemi ennemi) {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Si tu veux te battre, tape Y. \nTape autre chose pour fuir");
+        String response = sc.nextLine();
+        if (response.equals("Y")) {
+            attaquer(ennemi);
+            ennemi.attaquer(this);
+        } else {
+            fuir();
+        }
+    }
 
     public void subirDommage(int force) {
 
-        this.niveauVie-=force;
-        if (this.niveauVie<=0) {
-            this.dead=true;
+        this.niveauVie -= force;
+        if (this.niveauVie <= 0) {
+            this.dead = true;
+            this.niveauVie=0;
             System.out.println("Mince, tu es mort!");
         } else {
-            System.out.println("Ton niveau de vie passe à "+this.niveauVie);
+            System.out.println("Ton niveau de vie passe à " + this.niveauVie);
         }
     }
 

@@ -8,6 +8,14 @@ public class Massue extends Arme{
         this.forceAttack=3;
     }
 
+    public Massue(int numeroCase) {
+        this.name="Massue";
+        this.forceAttack=3;
+        this.numeroCase=numeroCase;
+    }
+
+
+
     public void interagir(Hero hero) {
         if(hero instanceof Guerrier) {
             hero.augmenterAttaque(this);
