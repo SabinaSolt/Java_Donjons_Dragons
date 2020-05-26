@@ -1,7 +1,4 @@
 # Java_Donjons_Dragons
 
 README README README README 
-1. il faut créer le projet
-2. écrire le code dans main.java
-3. compiler le code
-4. executer le code
+Le but de ce projet est de créer un jeu, inspiré des jeux de plateaux de l'univers "Donjons et Dragons", en utilisant le langage Java brut, sans framework. Le jeu ne contient pas de partie graphique, tout se déroule dans la console. 
