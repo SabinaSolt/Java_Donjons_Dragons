@@ -10,6 +10,7 @@ import java.util.Scanner;
 public abstract class Hero {
     //state of an object
     protected String name;
+    protected String type;
     protected String image = "image.jpg";
     protected int niveauVie;
     protected int force;
@@ -54,6 +55,8 @@ public abstract class Hero {
     public void setImage(String image) {
         this.image = image;
     }
+
+
 
     public void setNiveauVie(int niveauVie) {
         this.niveauVie = niveauVie;
@@ -104,6 +107,25 @@ public abstract class Hero {
     public String getProtection() {
         return protection;
     }
+    public String getType() {
+        return type;
+    }
+
+    public int getForceMax() {
+        return forceMax;
+    }
+
+    public int getVieMax() {
+        return vieMax;
+    }
+
+    public int getCaseCourante() {
+        return caseCourante;
+    }
+
+    public int getDerniereCase() {
+        return derniereCase;
+    }
 
     public boolean isDead() {
         return dead;
@@ -116,7 +138,7 @@ public abstract class Hero {
     //behavior of an object
     @Override
     public String toString() {
-        String str = "Name: " + this.name + "\nVie: " + this.niveauVie + "\nForce: " + this.force;
+        String str = "Name: " + this.name +"\nType: " + this.type+ "\nVie: " + this.niveauVie + "\nForce: " + this.force;
         return str;
     }
 

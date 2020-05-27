@@ -48,6 +48,7 @@ public class Menu {
             Hero personnage = new Magicien(nomPerso);
             return personnage;
         }
+
     }
 
 

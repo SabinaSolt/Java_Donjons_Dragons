@@ -51,7 +51,7 @@ public enum ListCaseSpec {
     @Override
     public String toString() {
         return "ListCaseSpec{" +
-                "caseACreer=" + this +
+                "caseACreer=" + this.name() +
                 ", maxCase=" + maxCase +
                 ", compteurCase=" + compteurCase +
                 '}';
