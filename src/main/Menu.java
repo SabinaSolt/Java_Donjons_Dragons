@@ -9,12 +9,67 @@ import exceptions.PersonnageHorsPlateauException;
 import personnages.*;
 
 public class Menu {
-    private Boolean modeDebug = true;
+    private Boolean modeDebug = false;
     private String persoDebug = "Guerrier";
     private int deDebug[] = {2, 4, 6};
+    ConnectionBD conn = new ConnectionBD();
+
+    public void menuDemarrage(Scanner sc) {
+        if (!modeDebug)System.out.println("Pour quitter le jeu tapez Quit"+
+                "\nPour afficher tous les personnages tapez 'Heroes'"+
+                "\nPour choisir un personnage existant tapez 'Choisir'"+
+                "\nPour supprimer un personnage tapez 'Delete'"+
+                "\nPour créer un nouveau personnage tapez 'Create'"+
+                "\nPour modifier le nom du personnage tapez 'Update'"+
+                "\nPour démarrer une partie tapez 'Play'");
 
 
-    public Hero ChoixPersonnage(Scanner sc) {
+        Hero personnage=new Guerrier();
+        Boolean persoCreated=false;
+        Boolean jeuTourne=true;
+
+        do {
+            if (!modeDebug)System.out.println("Indiquez votre choix");
+            String response = (modeDebug) ?"Create":sc.nextLine();
+            switch (response) {
+                case "Quit":
+                    System.exit(0);
+                    break;
+                case "Heroes":
+                    this.conn.getHeroes();
+                    break;
+                case "Choisir":
+                    personnage = this.conn.chooseHero(sc);
+                    persoCreated = true;
+                    break;
+                case "Delete":
+                    this.conn.deleteHero(sc);
+                    break;
+                case "Create":
+                    personnage = this.CreerPersonnage(sc);
+                    persoCreated = true;
+                    break;
+                case "Update":
+                    this.ModifierPersonnage(sc);
+                    break;
+                case "Play":
+                    if (persoCreated) {
+                        this.DemarrerPartie(personnage, sc);
+                    } else {
+                        System.out.println("Vous devez créer un personnage d'abord");
+                    }
+                    if(modeDebug) jeuTourne=false;
+                    break;
+                default:
+                    System.out.println("Je ne connais pas cette commande");
+                    break;
+            }
+            if(modeDebug) response="Play";
+        }while (jeuTourne);
+    }
+
+
+    public Hero CreerPersonnage(Scanner sc) {
         System.out.println("Pour quitter le jeu tapez Quit");
         if (!modeDebug) System.out.println("Choisissez votre personnage. Tapez Guerrier ou Magicien");
         String choixPerso = (modeDebug) ? persoDebug : sc.nextLine();
@@ -32,35 +87,26 @@ public class Menu {
             }
         } while (!choixOk);
 
-        Hero personnage = CreerPersonnage(choixPerso, sc);
-        System.out.println(personnage.toString());
-        return personnage;
-    }
-
-
-    public Hero CreerPersonnage(String choixPerso, Scanner sc) {
         if (!modeDebug) System.out.println("Entrez le nom de votre personnage");
         String nomPerso = (modeDebug) ? "La Cobaye Sanguinaire" : sc.nextLine();
         if (choixPerso.equals("Guerrier")) {
             Hero personnage = new Guerrier(nomPerso);
+            conn.createHero(personnage);
             return personnage;
         } else {
             Hero personnage = new Magicien(nomPerso);
+            conn.createHero(personnage);
             return personnage;
         }
-
     }
 
 
-    public void ModifierPersonnage(Hero personnage, Scanner sc) {
-        if (!modeDebug) System.out.println("Vous pouvez modifier le nom de votre perso Y/N");
-        String response = (modeDebug) ? "N" : sc.nextLine();
-        if (response.equals("Y")) {
-            System.out.println("Entrez le nouveau nom de votre perso");
-            String nouvNom = sc.nextLine();
-            personnage.setName(nouvNom);
-            System.out.println(personnage.toString());
-        }
+    public void ModifierPersonnage(Scanner sc) {
+        Hero personnage = this.conn.chooseHero(sc);
+        System.out.println("Entrez le nouveau nom de votre perso");
+        String nouvNom = sc.nextLine();
+        personnage.setName(nouvNom);
+        conn.updateHero(personnage.getId(), nouvNom);
     }
 
     public void DemarrerPartie(Hero personnage, Scanner sc) {
@@ -81,7 +127,6 @@ public class Menu {
             }
             //Compter les tours en mode debug
             if (modeDebug) {
-
                 if (compteurTourDebug < this.deDebug.length) {
                     compteurTourDebug++;
                 } else {

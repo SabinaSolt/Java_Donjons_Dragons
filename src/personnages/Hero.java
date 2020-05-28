@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 public abstract class Hero {
     //state of an object
+    protected int id;
     protected String name;
     protected String type;
     protected int niveauVie;
@@ -24,18 +25,40 @@ public abstract class Hero {
     public Hero() {
     }
 
-    public Hero(String name) {
-        this(name, 0, 0);
-    }
-
-    public Hero(String name,  int niveauVie, int force) {
+    public Hero(String name, int niveauVie, int force, int id, String protection, String armeType) {
+        this.id=id;
         this.name = name;
         this.niveauVie = niveauVie;
         this.force = force;
-        this.arme=new Motivation();
+        this.protection=protection;
+        this.setArme(armeType);
     }
 
 //Setters
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setForceMax(int forceMax) {
+        this.forceMax = forceMax;
+    }
+
+    public void setVieMax(int vieMax) {
+        this.vieMax = vieMax;
+    }
+
+    public void setDead(boolean dead) {
+        this.dead = dead;
+    }
+
+    public void setDerniereCase(int derniereCase) {
+        this.derniereCase = derniereCase;
+    }
 
     public void setName(String name) {
         this.name = name;
@@ -53,6 +76,30 @@ public abstract class Hero {
         this.arme = arme;
     }
 
+
+    public void setArme(String armeType) {
+        switch (armeType) {
+            case "BouleFeu":
+                this.arme=new BouleFeu();
+                break;
+            case "Eclair":
+                this.arme=new Eclair();
+                break;
+            case "Epee":
+                this.arme=new Epee();
+                break;
+            case "Massue":
+                this.arme=new Massue();
+                break;
+            case "Motivation":
+                this.arme=new Motivation();
+                break;
+            default:
+                this.arme=new Motivation();
+                break;
+        }
+    }
+
     public void setProtection(String protection) {
         this.protection = protection;
     }
@@ -65,7 +112,10 @@ public abstract class Hero {
         }
     }
 
-// Getters
+    // Getters
+    public int getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
@@ -86,6 +136,7 @@ public abstract class Hero {
     public String getProtection() {
         return protection;
     }
+
     public String getType() {
         return type;
     }
@@ -117,7 +168,7 @@ public abstract class Hero {
     //behavior of an object
     @Override
     public String toString() {
-        String str = "Name: " + this.name +"\nType: " + this.type+ "\nVie: " + this.niveauVie + "\nForce: " + this.force;
+        String str = "id: "+this.id+"\nName: " + this.name + "\nType: " + this.type + "\nVie: " + this.niveauVie + "\nForce: " + this.force;
         return str;
     }
 
@@ -152,13 +203,13 @@ public abstract class Hero {
 
     public void fuir() {
         int caseRecule = 1 + (int) (Math.random() * 6);
-        System.out.println("Tu fuis ton ennemi. Le destin te fais reculer de " + caseRecule+" cases");
+        System.out.println("Tu fuis ton ennemi. Le destin te fais reculer de " + caseRecule + " cases");
         this.caseCourante = this.caseCourante - caseRecule;
         if (this.caseCourante < 1) {
             this.caseCourante = 1;
         }
 
-        System.out.println("Tu retournes à la case " +this.caseCourante);
+        System.out.println("Tu retournes à la case " + this.caseCourante);
     }
 
     public void decisionHero(Ennemi ennemi) {
@@ -179,7 +230,7 @@ public abstract class Hero {
         this.niveauVie -= force;
         if (this.niveauVie <= 0) {
             this.dead = true;
-            this.niveauVie=0;
+            this.niveauVie = 0;
             System.out.println("Mince, tu es mort!");
         } else {
             System.out.println("Ton niveau de vie passe à " + this.niveauVie);

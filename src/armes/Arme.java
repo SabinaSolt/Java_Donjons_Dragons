@@ -5,6 +5,8 @@ import main.Case;
 public abstract class Arme implements Case {
 protected String name;
 protected int forceAttack;
+    public Arme() {}
+
 
     public int getForceAttack() {
         return forceAttack;

@@ -1,5 +1,7 @@
 package personnages;
 
+import armes.Motivation;
+
 public class Guerrier extends Hero {
 
     //constructor method
@@ -10,14 +12,16 @@ public class Guerrier extends Hero {
         this.forceMax = 10;
         this.vieMax = 10;
         this.type = "Guerrier";
+        this.arme = new Motivation();
+        this.id=0;
     }
 
     public Guerrier(String name) {
-        this(name, 5 + (int) (Math.random() * 5), 5 + (int) (Math.random() * 5));
+        this(name, 5 + (int) (Math.random() * 5), 5 + (int) (Math.random() * 5),0,"","Motivation");
     }
 
-    public Guerrier(String name, int niveauVie, int force) {
-        super(name, niveauVie, force);
+    public Guerrier(String name, int niveauVie, int force,int id, String protection, String armeType) {
+        super(name, niveauVie, force,id, protection, armeType);
         this.forceMax = 10;
         this.vieMax = 10;
         this.type = "Guerrier";

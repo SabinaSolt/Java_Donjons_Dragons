@@ -1,5 +1,6 @@
 package main;
 
+import armes.*;
 import personnages.*;
 
 import java.sql.*;
@@ -58,6 +59,7 @@ public class ConnectionBD {
     }
 
     public void getHero(int id) {
+
         try {
 
             //Création d'un objet Statement
@@ -90,46 +92,78 @@ public class ConnectionBD {
         }
     }
 
-    public void updateHero(int id, Scanner sc) {
+
+    public Hero chooseHero(Scanner sc) {
+        System.out.println("Pour choisir un personnage depuis la base tapez son id");
+        int response = sc.nextInt();
+        sc.nextLine();
+        Hero personnage = new Guerrier();
 
         try {
+
             //Création d'un objet Statement
-            Statement state = this.conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            String query = "SELECT * FROM hero WHERE id=" + id;
-
-            //L'objet ResultSet contient le résultat de la requête SQL
+            Statement state = this.conn.createStatement();
+            String query = "SELECT * FROM hero WHERE id=" + response;
             ResultSet result = state.executeQuery(query);
+            ResultSetMetaData resultMeta = result.getMetaData();
 
-            result.first();
-            System.out.println("Avant la modification:");
-            this.getHero(id);
-            System.out.println("Entrez le nouveau nom du personnage"
-                    + result.getString("Nom") + " (max 45 car):");
-            String newName = sc.nextLine();
-            //On met à jour les champs
-            result.updateString("Nom", newName);
-            //On valide
-            result.updateRow();
+            while (result.next()) {
+                String type = result.getString("Type");
+                String nom = result.getString("Nom");
+                int vie = result.getInt("NiveauVie");
+                int force = result.getInt("NiveauForce");
+                String armeNom = result.getString("Arme");
+                String bouclier = result.getString("Bouclier");
+
+                if (type.equals("Guerrier")) {
+                    personnage = new Guerrier(nom, vie, force, response, bouclier, armeNom);
+
+                } else {
+                    personnage = new Magicien(nom, vie, force, response, bouclier, armeNom);
+                }
+            }
+            result.close();
+            state.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        System.out.println(personnage.toString());
+        return personnage;
+
+    }
+
+
+    public void updateHero(int id, String newName) {
+
+        try {
+            String query = "UPDATE `hero` SET `Nom` = ? WHERE `hero`.`id` = ?";
+            PreparedStatement prepare = this.conn.prepareStatement(query);
+            prepare.setString(1, newName);
+            prepare.setInt(2, id);
+            prepare.executeUpdate();
             System.out.println("Après la modification:");
             this.getHero(id);
 
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
     }
 
-    public void deleteHero(int id, Scanner sc) {
+    public void deleteHero(Scanner sc) {
+        System.out.println("Pour supprimer le personnage tapez son id");
+        int id=sc.nextInt();
+        sc.nextLine();
         try {
             //Création d'un objet Statement
-            Statement state = this.conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            String query = "DELETE FROM hero WHERE id=" + id;
+            String query = "DELETE FROM hero WHERE id=?";
+            PreparedStatement prepare = this.conn.prepareStatement(query);
+            prepare.setInt(1, id);
             System.out.println("Vous etes sur le point de supprimer personnage id " + id);
             System.out.println("Pour confirmer tapez Y ");
             String reponse = sc.nextLine();
             if (reponse.equals("Y")) {
                 //L'objet ResultSet contient le résultat de la requête SQL
-                state.executeUpdate(query);
+                prepare.executeUpdate();
                 System.out.println("Après la modification:");
             } else {
                 System.out.println("La base n'a pas été modifiée:");
@@ -142,11 +176,9 @@ public class ConnectionBD {
 
     public void createHero(Hero personnage) {
         try {
-
-
             String query = "INSERT INTO hero (Type, Nom, NiveauVie, NiveauForce, Arme, Bouclier)  VALUES (?,?,?,?,?,?)";
 
-            PreparedStatement prepare = this.conn.prepareStatement(query);
+            PreparedStatement prepare = this.conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             prepare.setString(1, personnage.getType());
             prepare.setString(2, personnage.getName());
             prepare.setInt(3, personnage.getNiveauVie());
@@ -154,15 +186,15 @@ public class ConnectionBD {
             prepare.setString(5, personnage.getArme().getName());
             prepare.setString(6, personnage.getProtection());
 
-
             prepare.executeUpdate();
-            System.out.println("Après la modification:");
-            this.getHeroes();
-
+            ResultSet generatedKeys = prepare.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                int newId = generatedKeys.getInt(1);
+                personnage.setId(newId);
+                this.getHero(newId);
+            }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
-
     }
 }
