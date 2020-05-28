@@ -1,15 +1,11 @@
 package ennemies;
 
-public class Gobelin extends Ennemi{
-    public Gobelin() {
-        this(0);
-    }
+public class Gobelin extends Ennemi {
 
-    public Gobelin(int numeroCase) {
-        this.name="Gobelin";
-        this.niveauVie=6;
-        this.force=1;
-        this.numeroCase=numeroCase;
+    public Gobelin() {
+        this.name = "Gobelin";
+        this.niveauVie = 6;
+        this.force = 1;
     }
 
 }

@@ -1,21 +1,25 @@
 package main;
+
 import personnages.*;
-public class DernierCase extends Case{
+
+public class DernierCase implements Case {
+    protected String name;
+
     DernierCase() {
-        this(0);
+        this.name = "La Case du Salut";
 
     }
 
-    DernierCase(int numeroCase) {
-        this.name="La Case du Salut";
-        this.numeroCase=numeroCase;
+    public String getName() {
+        return name;
     }
 
     @Override
     public String toString() {
         return this.name;
     }
-    public void interagir (Hero hero) {
-        System.out.println("Félicitation "+hero.getName()+"! Tu as gagné!");
+
+    public void interagir(Hero hero) {
+        System.out.println("Félicitation " + hero.getName() + "! Tu as gagné!");
     }
 }

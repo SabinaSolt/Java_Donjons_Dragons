@@ -2,20 +2,20 @@ package main;
 
 import personnages.*;
 
-public class CaseVide extends Case {
+public class CaseVide implements Case {
+    protected String name;
 
     CaseVide() {
-        this(0);
-    }
-
-    CaseVide(int numeroCase) {
         this.name = "Case Vide";
-        this.numeroCase=numeroCase;
+     }
+
+    public String getName() {
+        return name;
     }
 
     @Override
     public String toString() {
-        return this.name+"\n Numero de la case  "+this.numeroCase;
+        return this.name;
     }
 
     public void interagir(Hero hero) {

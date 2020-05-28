@@ -3,11 +3,12 @@ package ennemies;
 import main.*;
 import personnages.*;
 
-public abstract class Ennemi extends Case {
+public abstract class Ennemi implements Case {
 
     protected int niveauVie;
     protected int force;
     protected boolean dead;
+    protected String name;
 
     //Getters
     public int getNiveauVie() {
@@ -22,10 +23,12 @@ public abstract class Ennemi extends Case {
         return dead;
     }
 
+    public String getName() {
+        return name;
+    }
     @Override
     public String toString() {
-        String str = "Tu tombes sur un ennemi! \nName: " + this.name + "\nVie: " + this.niveauVie + "\nForce: " + this.force +
-                "\n Numero de la case ennemi " + this.numeroCase;
+        String str = "Tu tombes sur un ennemi! \nName: " + this.name + "\nVie: " + this.niveauVie + "\nForce: " + this.force;
         return str;
     }
 

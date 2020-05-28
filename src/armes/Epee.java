@@ -2,19 +2,15 @@ package armes;
 
 import personnages.*;
 
-public class Epee extends Arme{
-    public Epee() {
-        this(0);
-    }
+public class Epee extends Arme {
 
-    public Epee( int numeroCase) {
-        this.name="Epee";
-        this.forceAttack=5;
-        this.numeroCase=numeroCase;
+    public Epee() {
+        this.name = "Epee";
+        this.forceAttack = 5;
     }
 
     public void interagir(Hero hero) {
-        if(hero instanceof Guerrier) {
+        if (hero instanceof Guerrier) {
             hero.augmenterAttaque(this);
         } else {
             System.out.println("Pas de bol! Tu ne sais pas manier une epée!");

@@ -9,7 +9,7 @@ public class Guerrier extends Hero {
         this.force = 5 + (int) (Math.random() * 5);
         this.forceMax = 10;
         this.vieMax = 10;
-        this.type="Guerrier";
+        this.type = "Guerrier";
     }
 
     public Guerrier(String name) {
@@ -20,9 +20,8 @@ public class Guerrier extends Hero {
         super(name, niveauVie, force);
         this.forceMax = 10;
         this.vieMax = 10;
-        this.type="Guerrier";
+        this.type = "Guerrier";
     }
-
 
     //behavior of an object
     @Override
@@ -32,6 +31,5 @@ public class Guerrier extends Hero {
         return str;
 
     }
-
 
 }

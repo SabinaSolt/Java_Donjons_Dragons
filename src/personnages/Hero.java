@@ -2,7 +2,6 @@ package personnages;
 
 import armes.*;
 import exceptions.PersonnageHorsPlateauException;
-import potions.*;
 import ennemies.*;
 
 import java.util.Scanner;
@@ -11,7 +10,6 @@ public abstract class Hero {
     //state of an object
     protected String name;
     protected String type;
-    protected String image = "image.jpg";
     protected int niveauVie;
     protected int force;
     protected Arme arme;
@@ -28,22 +26,13 @@ public abstract class Hero {
 
     public Hero(String name) {
         this(name, 0, 0);
-//        this.name=name;
-
     }
 
-    public Hero(String name, int niveauVie, int force) {
+    public Hero(String name,  int niveauVie, int force) {
         this.name = name;
         this.niveauVie = niveauVie;
         this.force = force;
-    }
-
-
-    public Hero(String name, String image, int niveauVie, int force) {
-        this.name = name;
-        this.image = image;
-        this.niveauVie = niveauVie;
-        this.force = force;
+        this.arme=new Motivation();
     }
 
 //Setters
@@ -51,12 +40,6 @@ public abstract class Hero {
     public void setName(String name) {
         this.name = name;
     }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
-
-
 
     public void setNiveauVie(int niveauVie) {
         this.niveauVie = niveauVie;
@@ -86,10 +69,6 @@ public abstract class Hero {
 
     public String getName() {
         return name;
-    }
-
-    public String getImage() {
-        return image;
     }
 
     public int getNiveauVie() {

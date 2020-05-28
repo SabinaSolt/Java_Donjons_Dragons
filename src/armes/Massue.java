@@ -2,22 +2,16 @@ package armes;
 
 import personnages.*;
 
-public class Massue extends Arme{
+public class Massue extends Arme {
+
     public Massue() {
-        this.name="Massue";
-        this.forceAttack=3;
+        this.name = "Massue";
+        this.forceAttack = 3;
     }
-
-    public Massue(int numeroCase) {
-        this.name="Massue";
-        this.forceAttack=3;
-        this.numeroCase=numeroCase;
-    }
-
 
 
     public void interagir(Hero hero) {
-        if(hero instanceof Guerrier) {
+        if (hero instanceof Guerrier) {
             hero.augmenterAttaque(this);
         } else {
             System.out.println("Pas de bol! Tu ne sais pas manier une massue!");

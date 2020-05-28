@@ -1,14 +1,11 @@
 package armes;
 
+import main.Case;
 import personnages.*;
 
-public class BouleFeu extends Arme {
-    public BouleFeu() {
-        this(0);
-    }
+public class BouleFeu extends Arme  {
 
-    public BouleFeu(int numeroCase) {
-        this.numeroCase = numeroCase;
+    public BouleFeu() {
         this.name = "Boule de feu";
         this.forceAttack = 7;
     }
@@ -20,5 +17,7 @@ public class BouleFeu extends Arme {
             System.out.println("Pas de bol! Tu ne sais pas faire de sorts!");
         }
     }
+
+
 
 }

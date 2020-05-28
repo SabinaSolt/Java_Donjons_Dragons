@@ -2,12 +2,16 @@ package armes;
 
 import main.Case;
 
-public abstract class Arme extends Case {
-
+public abstract class Arme implements Case {
+protected String name;
 protected int forceAttack;
 
     public int getForceAttack() {
         return forceAttack;
+    }
+
+    public String getName() {
+        return name;
     }
 
  //toString

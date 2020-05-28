@@ -124,10 +124,10 @@ public class ConnectionBD {
             //Création d'un objet Statement
             Statement state = this.conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
             String query = "DELETE FROM hero WHERE id=" + id;
-            System.out.println("Vous etes sur le point de supprimer personnage id " +id);
+            System.out.println("Vous etes sur le point de supprimer personnage id " + id);
             System.out.println("Pour confirmer tapez Y ");
             String reponse = sc.nextLine();
-            if(reponse.equals("Y")) {
+            if (reponse.equals("Y")) {
                 //L'objet ResultSet contient le résultat de la requête SQL
                 state.executeUpdate(query);
                 System.out.println("Après la modification:");
@@ -143,26 +143,24 @@ public class ConnectionBD {
     public void createHero(Hero personnage) {
         try {
 
-            //Création d'un objet Statement
-            Statement state = this.conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            String query="INSERT INTO hero ( Type, Nom, NiveauVie, NiveauForce) VALUES (?, ?, ?, ?)";
 
+            String query = "INSERT INTO hero (Type, Nom, NiveauVie, NiveauForce, Arme, Bouclier)  VALUES (?,?,?,?,?,?)";
 
-            PreparedStatement prepare=this.conn.prepareStatement(query);
+            PreparedStatement prepare = this.conn.prepareStatement(query);
             prepare.setString(1, personnage.getType());
             prepare.setString(2, personnage.getName());
             prepare.setInt(3, personnage.getNiveauVie());
             prepare.setInt(4, personnage.getForce());
-                //L'objet ResultSet contient le résultat de la requête SQL
-                state.executeUpdate(query);
-                System.out.println("Après la modification:");
-                this.getHeroes();
+            prepare.setString(5, personnage.getArme().getName());
+            prepare.setString(6, personnage.getProtection());
 
-        }catch (SQLException ex) {
-            // handle any errors
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
+
+            prepare.executeUpdate();
+            System.out.println("Après la modification:");
+            this.getHeroes();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
 
 

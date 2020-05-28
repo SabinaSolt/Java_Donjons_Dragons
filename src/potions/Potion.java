@@ -4,7 +4,8 @@ import main.*;
 import personnages.*;
 
 
-public abstract class Potion extends Case {
+public abstract class Potion implements Case {
+    protected String name;
 
     protected int healingPower;
 
@@ -12,7 +13,9 @@ public abstract class Potion extends Case {
     public int getHealingPower() {
         return healingPower;
     }
-
+    public String getName() {
+        return name;
+    }
     //toString
     @Override
     public String toString() {

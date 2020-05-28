@@ -3,17 +3,14 @@ package armes;
 import personnages.*;
 
 public class Eclair extends Arme {
+
     public Eclair() {
-        this(0);
-    }
-    public Eclair(int numeroCase) {
-        this.numeroCase=numeroCase;
-        this.name="Eclair";
-        this.forceAttack=2;
+        this.name = "Eclair";
+        this.forceAttack = 2;
     }
 
     public void interagir(Hero hero) {
-        if(hero instanceof Magicien) {
+        if (hero instanceof Magicien) {
             hero.augmenterAttaque(this);
         } else {
             System.out.println("Pas de bol! Tu ne sais pas faire de sorts!");
