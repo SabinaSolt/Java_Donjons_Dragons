@@ -29,8 +29,10 @@ public class Menu {
         Boolean jeuTourne=true;
 
         do {
-            if (!modeDebug)System.out.println("Indiquez votre choix");
-            String response = (modeDebug) ?"Create":sc.nextLine();
+            if (!modeDebug)System.out.println("Indiquez votre choix:");
+            String str=(persoCreated)?"Play":"Create";
+            String response = (modeDebug) ?str:sc.nextLine();
+
             switch (response) {
                 case "Quit":
                     System.exit(0);
@@ -64,7 +66,7 @@ public class Menu {
                     System.out.println("Je ne connais pas cette commande");
                     break;
             }
-            if(modeDebug) response="Play";
+
         }while (jeuTourne);
     }
 
