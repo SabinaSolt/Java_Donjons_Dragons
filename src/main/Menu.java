@@ -1,6 +1,7 @@
 package main;
 
 import java.util.Scanner;
+
 import exceptions.PersonnageHorsPlateauException;
 import personnages.*;
 
@@ -11,7 +12,7 @@ import personnages.*;
  * gère le mode debug.<br>
  */
 public class Menu {
-    private Boolean modeDebug = true;
+    private Boolean modeDebug = false;
     private String persoDebug = "Guerrier";
     private int deDebug[] = {2, 4, 6};
     private ConnectionBD conn = new ConnectionBD();
@@ -19,26 +20,27 @@ public class Menu {
     /**
      * La méthode menuDemarrage propose le menu au joueur,
      * execute les méthodes en fonction de son choix.<br>
+     *
      * @param sc
      */
     public void menuDemarrage(Scanner sc) {
-        if (!modeDebug)System.out.println("Pour quitter le jeu tapez Quit"+
-                "\nPour afficher tous les personnages tapez 'Heroes'"+
-                "\nPour choisir un personnage existant tapez 'Choisir'"+
-                "\nPour supprimer un personnage tapez 'Delete'"+
-                "\nPour créer un nouveau personnage tapez 'Create'"+
-                "\nPour modifier le nom du personnage tapez 'Update'"+
+        if (!modeDebug) System.out.println("Pour quitter le jeu tapez Quit" +
+                "\nPour afficher tous les personnages tapez 'Heroes'" +
+                "\nPour choisir un personnage existant tapez 'Choisir'" +
+                "\nPour supprimer un personnage tapez 'Delete'" +
+                "\nPour créer un nouveau personnage tapez 'Create'" +
+                "\nPour modifier le nom du personnage tapez 'Update'" +
                 "\nPour démarrer une partie tapez 'Play'");
 
 
-        Hero personnage=new Guerrier();
-        Boolean persoCreated=false;
-        Boolean jeuTourne=true;
+        Hero personnage = new Guerrier();
+        Boolean persoCreated = false;
+        Boolean jeuTourne = true;
 
         do {
-            if (!modeDebug)System.out.println("Indiquez votre choix:");
-            String str=(persoCreated)?"Play":"Create";
-            String response = (modeDebug) ?str:sc.nextLine();
+            if (!modeDebug) System.out.println("Indiquez votre choix (vous êtes toujours dans le menu):");
+            String str = (persoCreated) ? "Play" : "Create";
+            String response = (modeDebug) ? str : sc.nextLine();
 
             switch (response) {
                 case "Quit":
@@ -55,7 +57,7 @@ public class Menu {
                     this.conn.deleteHero(sc);
                     break;
                 case "Create":
-                    personnage = this.CreerPersonnage(sc);
+                    personnage = this.CreerPersonnage(sc, ChoixPersonnage(sc));
                     persoCreated = true;
                     break;
                 case "Update":
@@ -63,29 +65,30 @@ public class Menu {
                     break;
                 case "Play":
                     if (persoCreated) {
-                        this.DemarrerPartie(personnage, sc);
+                        this.JouerPartie(personnage, sc);
                     } else {
                         System.out.println("Vous devez créer un personnage d'abord");
                     }
-                    if(modeDebug) jeuTourne=false;
+                    if (modeDebug) jeuTourne = false;
                     break;
                 default:
                     System.out.println("Je ne connais pas cette commande");
                     break;
             }
 
-        }while (jeuTourne);
+        } while (jeuTourne);
     }
 
     /**
      * La méthode CreerPersonnage instancie le personnage en fonction des choix du joueur,
      * sauvegarde le personnage dans la BDD.<br>
+     *
      * @param sc
-     * @return
+     * @return choixPerso
      */
 
-    public Hero CreerPersonnage(Scanner sc) {
-        System.out.println("Pour quitter le jeu tapez Quit");
+    public String ChoixPersonnage(Scanner sc) {
+
         if (!modeDebug) System.out.println("Choisissez votre personnage. Tapez Guerrier ou Magicien");
         String choixPerso = (modeDebug) ? persoDebug : sc.nextLine();
         Boolean choixOk = true;
@@ -101,7 +104,15 @@ public class Menu {
                 choixPerso = sc.nextLine();
             }
         } while (!choixOk);
+        return choixPerso;
+    }
 
+    /**
+     * @param sc
+     * @param choixPerso
+     * @return personnage
+     */
+    public Hero CreerPersonnage(Scanner sc, String choixPerso) {
         if (!modeDebug) System.out.println("Entrez le nom de votre personnage");
         String nomPerso = (modeDebug) ? "La Cobaye Sanguinaire" : sc.nextLine();
         if (choixPerso.equals("Guerrier")) {
@@ -118,6 +129,7 @@ public class Menu {
     /**
      * La méthode ModifierPersonnage modifie le nom du personnage
      * et sauvegarde la modification dans la BDD <br>
+     *
      * @param sc
      */
 
@@ -130,21 +142,9 @@ public class Menu {
     }
 
     /**
-     *
-     * @param personnage
-     * @param sc
-     */
-    public void DemarrerPartie(Hero personnage, Scanner sc) {
-        if (!modeDebug) System.out.println("Voulez vous démarrer la partie Y/N");
-        String response = (modeDebug) ? "Y" : sc.nextLine();
-        if (response.equals("Y")) {
-            JouerPartie(personnage, sc);
-        }
-    }
-
-    /**
      * La méthode JouerPartie gère le lancement des dés,
      * l'avancement du personnage et la fin de la partie.<br>
+     *
      * @param personnage
      * @param sc
      */
@@ -152,6 +152,7 @@ public class Menu {
         Plateau plateau = new Plateau();
         if (modeDebug) plateau.toString();
         int compteurTourDebug = 0;
+
         do {
             if (personnage.isDead()) {
                 System.exit(0);
@@ -165,29 +166,45 @@ public class Menu {
                     System.exit(0);
                 }
             }
-
             System.out.println("La case courante:" + personnage.getNumeroCaseCourante());
-            System.out.println("Pour lancer le dés tapez De");
-            String response = sc.nextLine();
+            this.LanceDe(personnage, compteurTourDebug, sc);
+            int indice = personnage.getNumeroCaseCourante() - 1;
+            System.out.println(plateau.getCase(indice).toString());
+            plateau.getCase(indice).interagir(personnage);
 
-            if (response.equals("Quit")) {
-                System.exit(0);
-            } else if (response.equals("De")) {
-                int de = (modeDebug) ? this.deDebug[compteurTourDebug - 1] : (1 + (int) (Math.random() * 6));
-                System.out.println("Le dé fait " + de + " points");
-
-                //bouger le personnage sur la nouvelle case
-                try {
-                    personnage.setCaseCourante(de);
-                } catch (PersonnageHorsPlateauException e) {
-                    e.getMessage();
-                }
-
-                System.out.println(personnage.getName() + " avance à la case " + personnage.getNumeroCaseCourante());
-                int indice = personnage.getNumeroCaseCourante() - 1;
-                System.out.println(plateau.getCase(indice).toString());
-                plateau.getCase(indice).interagir(personnage);
-            }
         } while (personnage.getNumeroCaseCourante() < plateau.getDerniereCase());
     }
+
+    public void LanceDe(Hero personnage, int compteurTourDebug, Scanner sc) {
+        if (personnage.isDroitLancerDe()) {
+            System.out.println("Pour lancer le dés tapez De");
+            boolean deLance = false;
+            do {
+                String response = sc.nextLine();
+                switch (response) {
+                    case "Quit":
+                        System.exit(0);
+                        break;
+                    case "De":
+                        deLance = true;
+                        int de = (modeDebug) ? this.deDebug[compteurTourDebug - 1] : (1 + (int) (Math.random() * 6));
+                        System.out.println("Le dé fait " + de + " points");
+                        //bouger le personnage sur la nouvelle case
+                        try {
+                            personnage.setCaseCourante(de);
+                        } catch (PersonnageHorsPlateauException e) {
+                            e.getMessage();
+                        }
+                        System.out.println(personnage.getName() + " avance à la case " + personnage.getNumeroCaseCourante());
+                        break;
+                    default:
+                        System.out.println("Je ne comprends pas cette commande");
+                        break;
+                }
+            } while (!deLance);
+
+        }
+        personnage.setDroitLancerDe(true);
+    }
+
 }

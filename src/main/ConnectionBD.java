@@ -12,12 +12,11 @@ import java.util.Scanner;
  */
 public class ConnectionBD {
 
-    Connection conn = null;
+    protected Connection conn = null;
 
 
     ConnectionBD() {
         try {
-
             this.conn = DriverManager.getConnection("jdbc:mysql://localhost:3308/donjons_dragons" +
                             "?useUnicode=true" +
                             "&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&" +
@@ -64,7 +63,6 @@ public class ConnectionBD {
     }
 
     /**
-     *
      * @param id
      */
     public void getHero(int id) {
@@ -102,7 +100,6 @@ public class ConnectionBD {
     }
 
     /**
-     *
      * @param sc
      * @return
      */
@@ -146,7 +143,6 @@ public class ConnectionBD {
     }
 
     /**
-     *
      * @param id
      * @param newName
      */
@@ -167,12 +163,11 @@ public class ConnectionBD {
     }
 
     /**
-     *
      * @param sc
      */
     public void deleteHero(Scanner sc) {
         System.out.println("Pour supprimer le personnage tapez son id");
-        int id=sc.nextInt();
+        int id = sc.nextInt();
         sc.nextLine();
         try {
             //Création d'un objet Statement
@@ -196,7 +191,6 @@ public class ConnectionBD {
     }
 
     /**
-     *
      * @param personnage
      */
     public void createHero(Hero personnage) {

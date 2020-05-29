@@ -3,6 +3,8 @@ package personnages;
 import armes.*;
 import exceptions.PersonnageHorsPlateauException;
 import ennemies.*;
+import main.Plateau;
+
 import java.util.Scanner;
 
 /**
@@ -22,8 +24,9 @@ public abstract class Hero {
     protected int forceMax;
     protected int vieMax;
     protected boolean dead;
-    protected int caseCourante = 1;
+    protected int caseCourante = 0;
     protected int derniereCase = 64;
+    protected  boolean droitLancerDe;
 
     //constructor method
     public Hero() {
@@ -44,6 +47,7 @@ public abstract class Hero {
         this.niveauVie = niveauVie;
         this.force = force;
         this.protection=protection;
+        this.droitLancerDe=true;
         this.setArme(armeType);
     }
 
@@ -87,6 +91,10 @@ public abstract class Hero {
 
     public void setArme(Arme arme) {
         this.arme = arme;
+    }
+
+    public void setDroitLancerDe(boolean droitLancerDe) {
+        this.droitLancerDe = droitLancerDe;
     }
 
     /**
@@ -186,6 +194,10 @@ public abstract class Hero {
         return caseCourante;
     }
 
+    public boolean isDroitLancerDe() {
+        return droitLancerDe;
+    }
+
     //behavior of an object
     @Override
     public String toString() {
@@ -193,45 +205,7 @@ public abstract class Hero {
         return str;
     }
 
-    /**
-     *
-     * @param arme
-     */
-    public void augmenterAttaque(Arme arme) {
-        this.arme = arme;
-        this.force = this.force + arme.getForceAttack();
-        if (this.force > this.forceMax) {
-            this.force = this.forceMax;
-            System.out.println("Tu es gonflé à bloc. Ta force est à son max " + this.force);
-        } else {
-            System.out.println("Wow, tu es devenu super balaise! Ta force passe à " + this.force);
-        }
 
-    }
-
-    /**
-     *
-     * @param healing
-     */
-    public void seguerir(int healing) {
-        this.niveauVie = this.niveauVie + healing;
-        if (this.niveauVie > this.vieMax) {
-            this.niveauVie = this.vieMax;
-            System.out.println("Tu es au top de ta forme! Ta vie est au zenith: " + this.niveauVie);
-        } else {
-            System.out.println("Ton niveau de vie passe à " + this.niveauVie);
-        }
-
-    }
-
-    /**
-     *
-     * @param ennemi
-     */
-    public void attaquer(Ennemi ennemi) {
-        System.out.println("Tu attaques " + ennemi.getName() + " avec la force de " + this.force);
-        ennemi.subirDommage(this.force);
-    }
 
     public void fuir() {
         int caseRecule = 1 + (int) (Math.random() * 6);
@@ -240,8 +214,9 @@ public abstract class Hero {
         if (this.caseCourante < 1) {
             this.caseCourante = 1;
         }
-
+        this.droitLancerDe=false;
         System.out.println("Tu retournes à la case " + this.caseCourante);
+
     }
 
     /**
@@ -249,25 +224,29 @@ public abstract class Hero {
      * @param ennemi
      */
     public void decisionHero(Ennemi ennemi) {
-
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Si tu veux te battre, tape Y. \nTape autre chose pour fuir");
-        String response = sc.nextLine();
-        if (response.equals("Y")) {
-            attaquer(ennemi);
-            ennemi.attaquer(this);
+        if(ennemi.isDead()) {
+            System.out.println("Tu retrouve le cadavre de ton ennemi");
         } else {
-            fuir();
+            Scanner sc = new Scanner(System.in);
+            System.out.println("Si tu veux te battre, tape Y. \nTape autre chose pour fuir");
+            String response = sc.nextLine();
+            if (response.equals("Y")) {
+                ennemi.subirDommage(this);
+                this.subirDommage(ennemi);
+            } else {
+                fuir();
+            }
         }
+
     }
 
     /**
      *
-     * @param force
+     * @param ennemi
      */
-    public void subirDommage(int force) {
-
-        this.niveauVie -= force;
+    public void subirDommage(Ennemi ennemi) {
+        System.out.println(ennemi.getName() + " t'a attaqué avec la force de " + ennemi.getForce());
+        this.niveauVie -= ennemi.getForce();
         if (this.niveauVie <= 0) {
             this.dead = true;
             this.niveauVie = 0;

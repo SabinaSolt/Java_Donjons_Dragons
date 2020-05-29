@@ -27,7 +27,6 @@ public class Plateau {
         // initie le plateau avec les cases vides
         for (int i = 0; i < derniereCase; i++) {
             listCases.add(new CaseVide());
-
         }
 
         listCases.set(derniereCase - 1, new DernierCase());
@@ -36,9 +35,7 @@ public class Plateau {
             //Boucle répetée jusqu'à ce que le nombre des cases spéc atteigne son max
             do {
                 int caseAleatoire = (int) (Math.random() * 63);
-
                 if (listCases.get(caseAleatoire) instanceof CaseVide) {
-                    int numeroCase = caseAleatoire + 1;
 
                     switch (caseK.name()) {
                         case "Dragon":
@@ -69,13 +66,12 @@ public class Plateau {
                             listCases.set(caseAleatoire, new PotionGrande());
                             break;
                     }
+
                     caseK.incrementCompteurCase();
                 }
             } while (caseK.getCompteurCase() < caseK.getMaxCase());
         }
-
     }
-
 
     //Getters
 

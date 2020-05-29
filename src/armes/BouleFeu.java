@@ -12,7 +12,7 @@ public class BouleFeu extends Arme  {
 
     public void interagir(Hero hero) {
         if (hero instanceof Magicien) {
-            hero.augmenterAttaque(this);
+            this.augmenterAttaque(hero);
         } else {
             System.out.println("Pas de bol! Tu ne sais pas faire de sorts!");
         }

@@ -14,7 +14,7 @@ public class Motivation extends Arme {
         return str;
     }
     public void interagir(Hero hero) {
-        hero.augmenterAttaque(this);
+        this.augmenterAttaque(hero);
         System.out.println("Wow, tu as retrouvé la motivation!");
     }
 }

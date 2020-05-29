@@ -11,7 +11,7 @@ public class Epee extends Arme {
 
     public void interagir(Hero hero) {
         if (hero instanceof Guerrier) {
-            hero.augmenterAttaque(this);
+            this.augmenterAttaque(hero);
         } else {
             System.out.println("Pas de bol! Tu ne sais pas manier une epée!");
         }

@@ -38,15 +38,13 @@ public abstract class Ennemi implements Case {
         return str;
     }
 
-    public void attaquer(Hero hero) {
-        System.out.println(this.name + " t'a attaqué avec la force de " + this.force);
-        hero.subirDommage(this.force);
-    }
 
-    public void subirDommage(int force) {
-        this.niveauVie -= force;
+    public void subirDommage(Hero hero) {
+        System.out.println("Tu attaques " + this.name + " avec la force de " + hero.getForce());
+        this.niveauVie -= hero.getForce();
         if (this.niveauVie <= 0) {
             this.niveauVie = 0;
+            this.force=0;
             this.dead = true;
             System.out.println("Tu as tué ton ennemi!");
         } else {
