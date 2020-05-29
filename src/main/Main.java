@@ -1,8 +1,10 @@
 package main;
 
 import java.util.Scanner;
-import personnages.*;
 
+/**
+ * la classe Main ouvre le menu du jeu
+ */
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -10,4 +12,3 @@ public class Main {
         menu.menuDemarrage(sc);
     }
 }
-

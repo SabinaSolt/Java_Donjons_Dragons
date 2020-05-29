@@ -3,6 +3,12 @@ package ennemies;
 import main.*;
 import personnages.*;
 
+/**
+ * la classe Ennemi sert à créer des ennemies
+ * ces ennemies peuvent attaquer le personnage en lui enlevant les points de vie
+ * et peuvent subir le dommage suite à l'attaque du personnage
+ */
+
 public abstract class Ennemi implements Case {
 
     protected int niveauVie;

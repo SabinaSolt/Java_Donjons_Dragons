@@ -6,7 +6,11 @@ import potions.*;
 import exceptions.PersonnageHorsPlateauException;
 
 import java.util.ArrayList;
-/**/
+
+/**
+ * la classe Plateau permet de créer le plâteau de jeu
+ * avec les cases spéciales disposées d'une manière aléatoire
+ */
 
 public class Plateau {
     private int derniereCase = 64;
@@ -14,6 +18,11 @@ public class Plateau {
     private int premiereCase = 1;
     private ArrayList<Case> listCases;
 
+    /**
+     * constructeur Plateau()
+     * Dispose les cases spéciales sur le plateau d'une manière aléatoire
+     * Parcours array list des cases spéciales
+     */
     public Plateau() {
         this.listCases = new ArrayList();
         // initie le plateau avec les cases vides
@@ -23,10 +32,6 @@ public class Plateau {
         }
 
         listCases.set(derniereCase - 1, new DernierCase());
-
-
-        // Disposer les cases spéciales sur le plateau d'une manière aléatoire
-        //Parcours les tableaux des cases spéciales
 
         for (ListCaseSpec caseK : ListCaseSpec.values()) {
             //Boucle répetée jusqu'à ce que le nombre des cases spéc atteigne son max
@@ -79,7 +84,6 @@ public class Plateau {
         return derniereCase;
     }
 
-
     public Case getCase(int index) {
 
         return listCases.get(index);
@@ -90,7 +94,6 @@ public class Plateau {
     }
 
     //Setters
-
 
     @Override
     public String toString() {

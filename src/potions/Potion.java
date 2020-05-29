@@ -3,7 +3,9 @@ package potions;
 import main.*;
 import personnages.*;
 
-
+/**
+ * la classe Potion permet d'augmenter les points de vie du personnage
+ */
 public abstract class Potion implements Case {
     protected String name;
 

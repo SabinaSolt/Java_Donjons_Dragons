@@ -6,9 +6,14 @@ import personnages.*;
 import java.sql.*;
 import java.util.Scanner;
 
+/**
+ * La classe ConnectionBD établit la connection à la base de données et
+ * assure l'interaction avec la BDD : lecture, écriture, suppression
+ */
 public class ConnectionBD {
 
     Connection conn = null;
+
 
     ConnectionBD() {
         try {
@@ -58,6 +63,10 @@ public class ConnectionBD {
         }
     }
 
+    /**
+     *
+     * @param id
+     */
     public void getHero(int id) {
 
         try {
@@ -92,7 +101,11 @@ public class ConnectionBD {
         }
     }
 
-
+    /**
+     *
+     * @param sc
+     * @return
+     */
     public Hero chooseHero(Scanner sc) {
         System.out.println("Pour choisir un personnage depuis la base tapez son id");
         int response = sc.nextInt();
@@ -132,7 +145,11 @@ public class ConnectionBD {
 
     }
 
-
+    /**
+     *
+     * @param id
+     * @param newName
+     */
     public void updateHero(int id, String newName) {
 
         try {
@@ -149,6 +166,10 @@ public class ConnectionBD {
         }
     }
 
+    /**
+     *
+     * @param sc
+     */
     public void deleteHero(Scanner sc) {
         System.out.println("Pour supprimer le personnage tapez son id");
         int id=sc.nextInt();
@@ -174,6 +195,10 @@ public class ConnectionBD {
         }
     }
 
+    /**
+     *
+     * @param personnage
+     */
     public void createHero(Hero personnage) {
         try {
             String query = "INSERT INTO hero (Type, Nom, NiveauVie, NiveauForce, Arme, Bouclier)  VALUES (?,?,?,?,?,?)";

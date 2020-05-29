@@ -3,8 +3,12 @@ package personnages;
 import armes.*;
 import exceptions.PersonnageHorsPlateauException;
 import ennemies.*;
-
 import java.util.Scanner;
+
+/**
+ * la classe abstraite Hero sert à créer le personnage du jeu
+ * et définit ses comportements
+ */
 
 public abstract class Hero {
     //state of an object
@@ -25,6 +29,15 @@ public abstract class Hero {
     public Hero() {
     }
 
+    /**
+     *
+     * @param name
+     * @param niveauVie
+     * @param force
+     * @param id
+     * @param protection
+     * @param armeType
+     */
     public Hero(String name, int niveauVie, int force, int id, String protection, String armeType) {
         this.id=id;
         this.name = name;
@@ -76,7 +89,10 @@ public abstract class Hero {
         this.arme = arme;
     }
 
-
+    /**
+     *
+     * @param armeType
+     */
     public void setArme(String armeType) {
         switch (armeType) {
             case "BouleFeu":
@@ -104,6 +120,11 @@ public abstract class Hero {
         this.protection = protection;
     }
 
+    /**
+     *
+     * @param nombrePas
+     * @throws PersonnageHorsPlateauException
+     */
     public void setCaseCourante(int nombrePas) throws PersonnageHorsPlateauException {
         this.caseCourante = this.caseCourante + nombrePas;
         if (this.caseCourante > derniereCase) {
@@ -172,6 +193,10 @@ public abstract class Hero {
         return str;
     }
 
+    /**
+     *
+     * @param arme
+     */
     public void augmenterAttaque(Arme arme) {
         this.arme = arme;
         this.force = this.force + arme.getForceAttack();
@@ -184,6 +209,10 @@ public abstract class Hero {
 
     }
 
+    /**
+     *
+     * @param healing
+     */
     public void seguerir(int healing) {
         this.niveauVie = this.niveauVie + healing;
         if (this.niveauVie > this.vieMax) {
@@ -195,7 +224,10 @@ public abstract class Hero {
 
     }
 
-
+    /**
+     *
+     * @param ennemi
+     */
     public void attaquer(Ennemi ennemi) {
         System.out.println("Tu attaques " + ennemi.getName() + " avec la force de " + this.force);
         ennemi.subirDommage(this.force);
@@ -212,6 +244,10 @@ public abstract class Hero {
         System.out.println("Tu retournes à la case " + this.caseCourante);
     }
 
+    /**
+     *
+     * @param ennemi
+     */
     public void decisionHero(Ennemi ennemi) {
 
         Scanner sc = new Scanner(System.in);
@@ -225,6 +261,10 @@ public abstract class Hero {
         }
     }
 
+    /**
+     *
+     * @param force
+     */
     public void subirDommage(int force) {
 
         this.niveauVie -= force;

@@ -8,12 +8,23 @@ import ennemies.*;
 import exceptions.PersonnageHorsPlateauException;
 import personnages.*;
 
+/**
+ * La classe Menu contient le menu du jeu
+ * à partir du quel on crée et modifie les personnages,
+ * démarre le jeu et gère l'avancement du personnage sur le plâteau
+ * gère le mode debug
+ */
 public class Menu {
     private Boolean modeDebug = false;
     private String persoDebug = "Guerrier";
     private int deDebug[] = {2, 4, 6};
-    ConnectionBD conn = new ConnectionBD();
+    private ConnectionBD conn = new ConnectionBD();
 
+    /**
+     * méthode menuDemarrage propose le menu au joueur
+     * execute les méthodes en fonction de son choix
+     * @param sc
+     */
     public void menuDemarrage(Scanner sc) {
         if (!modeDebug)System.out.println("Pour quitter le jeu tapez Quit"+
                 "\nPour afficher tous les personnages tapez 'Heroes'"+
@@ -70,6 +81,12 @@ public class Menu {
         }while (jeuTourne);
     }
 
+    /**
+     * la méthode CreerPersonnage instancie le personnage en fonction des choix du joeuer
+     * sauvegarde le personnage dans la BDD
+     * @param sc
+     * @return
+     */
 
     public Hero CreerPersonnage(Scanner sc) {
         System.out.println("Pour quitter le jeu tapez Quit");
@@ -102,6 +119,11 @@ public class Menu {
         }
     }
 
+    /**
+     * la méthode ModifierPersonnage modifie le nom du personnage
+     * et sauvegarde la modification dans la BDD
+     * @param sc
+     */
 
     public void ModifierPersonnage(Scanner sc) {
         Hero personnage = this.conn.chooseHero(sc);
@@ -111,6 +133,11 @@ public class Menu {
         conn.updateHero(personnage.getId(), nouvNom);
     }
 
+    /**
+     *
+     * @param personnage
+     * @param sc
+     */
     public void DemarrerPartie(Hero personnage, Scanner sc) {
         if (!modeDebug) System.out.println("Voulez vous démarrer la partie Y/N");
         String response = (modeDebug) ? "Y" : sc.nextLine();
@@ -119,6 +146,12 @@ public class Menu {
         }
     }
 
+    /**
+     * la méthode JouerPartie gère le lancement des dés,
+     * l'avancement du personnage et la fin de la partie
+     * @param personnage
+     * @param sc
+     */
     public void JouerPartie(Hero personnage, Scanner sc) {
         Plateau plateau = new Plateau();
         if (modeDebug) plateau.toString();

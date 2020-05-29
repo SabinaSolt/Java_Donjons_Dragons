@@ -4,6 +4,10 @@ import armes.*;
 import ennemies.*;
 import potions.*;
 
+/**
+ * la classe enum ListCaseSpec liste les types et le nombre de cases spéciales
+ * aide à générer le plâteau de jeu
+ */
 public enum ListCaseSpec {
     Dragon(  4, 0),
     Sorcier(10,0),
