@@ -3,7 +3,7 @@ package main;
 import java.util.Scanner;
 
 /**
- * la classe Main ouvre le menu du jeu
+ * La classe Main ouvre le menu du jeu.<br>
  */
 public class Main {
     public static void main(String[] args) {

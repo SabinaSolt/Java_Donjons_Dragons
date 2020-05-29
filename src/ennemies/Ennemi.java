@@ -4,9 +4,9 @@ import main.*;
 import personnages.*;
 
 /**
- * la classe Ennemi sert à créer des ennemies
- * ces ennemies peuvent attaquer le personnage en lui enlevant les points de vie
- * et peuvent subir le dommage suite à l'attaque du personnage
+ * La classe Ennemi sert à créer des ennemies. <br>
+ * Ces ennemies peuvent attaquer le personnage en lui enlevant les points de vie
+ * et peuvent subir le dommage suite à l'attaque du personnage. <br>
  */
 
 public abstract class Ennemi implements Case {

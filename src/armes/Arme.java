@@ -3,7 +3,7 @@ package armes;
 import main.Case;
 
 /**
- * la classe  abstraite Arme permet d'augmenter la force d'attaque du personnage
+ * La classe  abstraite Arme permet d'augmenter la force d'attaque du personnage.<br>
  */
 public abstract class Arme implements Case {
 protected String name;

@@ -1,12 +1,9 @@
 package main;
 
-import armes.*;
-import ennemies.*;
-import potions.*;
 
 /**
- * la classe enum ListCaseSpec liste les types et le nombre de cases spéciales
- * aide à générer le plâteau de jeu
+ * La classe enum ListCaseSpec liste les types et le nombre de cases spéciales,
+ * aide à générer le plâteau de jeu.<br>
  */
 public enum ListCaseSpec {
     Dragon(  4, 0),

@@ -8,8 +8,8 @@ import exceptions.PersonnageHorsPlateauException;
 import java.util.ArrayList;
 
 /**
- * la classe Plateau permet de créer le plâteau de jeu
- * avec les cases spéciales disposées d'une manière aléatoire
+ * La classe Plateau permet de créer le plâteau de jeu
+ * avec les cases spéciales disposées d'une manière aléatoire.<br>
  */
 
 public class Plateau {
@@ -19,9 +19,8 @@ public class Plateau {
     private ArrayList<Case> listCases;
 
     /**
-     * constructeur Plateau()
-     * Dispose les cases spéciales sur le plateau d'une manière aléatoire
-     * Parcours array list des cases spéciales
+     * Le constructeur Plateau() dispose les cases spéciales sur le plateau d'une manière aléatoire,
+     * parcourt array list des cases spéciales.<br>
      */
     public Plateau() {
         this.listCases = new ArrayList();

@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 /**
  * La classe ConnectionBD établit la connection à la base de données et
- * assure l'interaction avec la BDD : lecture, écriture, suppression
+ * assure l'interaction avec la BDD : lecture, écriture, suppression.
  */
 public class ConnectionBD {
 

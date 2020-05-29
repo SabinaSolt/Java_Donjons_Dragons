@@ -1,28 +1,24 @@
 package main;
 
-import java.lang.reflect.Array;
-import java.util.ListIterator;
 import java.util.Scanner;
-
-import ennemies.*;
 import exceptions.PersonnageHorsPlateauException;
 import personnages.*;
 
 /**
  * La classe Menu contient le menu du jeu
- * à partir du quel on crée et modifie les personnages,
- * démarre le jeu et gère l'avancement du personnage sur le plâteau
- * gère le mode debug
+ * à partir du quel on crée et modifie les personnages;<br>
+ * démarre le jeu et gère l'avancement du personnage sur le plâteau; <br>
+ * gère le mode debug.<br>
  */
 public class Menu {
-    private Boolean modeDebug = false;
+    private Boolean modeDebug = true;
     private String persoDebug = "Guerrier";
     private int deDebug[] = {2, 4, 6};
     private ConnectionBD conn = new ConnectionBD();
 
     /**
-     * méthode menuDemarrage propose le menu au joueur
-     * execute les méthodes en fonction de son choix
+     * La méthode menuDemarrage propose le menu au joueur,
+     * execute les méthodes en fonction de son choix.<br>
      * @param sc
      */
     public void menuDemarrage(Scanner sc) {
@@ -82,8 +78,8 @@ public class Menu {
     }
 
     /**
-     * la méthode CreerPersonnage instancie le personnage en fonction des choix du joeuer
-     * sauvegarde le personnage dans la BDD
+     * La méthode CreerPersonnage instancie le personnage en fonction des choix du joueur,
+     * sauvegarde le personnage dans la BDD.<br>
      * @param sc
      * @return
      */
@@ -120,8 +116,8 @@ public class Menu {
     }
 
     /**
-     * la méthode ModifierPersonnage modifie le nom du personnage
-     * et sauvegarde la modification dans la BDD
+     * La méthode ModifierPersonnage modifie le nom du personnage
+     * et sauvegarde la modification dans la BDD <br>
      * @param sc
      */
 
@@ -147,8 +143,8 @@ public class Menu {
     }
 
     /**
-     * la méthode JouerPartie gère le lancement des dés,
-     * l'avancement du personnage et la fin de la partie
+     * La méthode JouerPartie gère le lancement des dés,
+     * l'avancement du personnage et la fin de la partie.<br>
      * @param personnage
      * @param sc
      */

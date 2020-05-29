@@ -6,8 +6,8 @@ import ennemies.*;
 import java.util.Scanner;
 
 /**
- * la classe abstraite Hero sert à créer le personnage du jeu
- * et définit ses comportements
+ * La classe abstraite Hero sert à créer le personnage du jeu
+ * et définit ses comportements.<br>
  */
 
 public abstract class Hero {
