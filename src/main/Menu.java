@@ -12,7 +12,7 @@ import personnages.*;
  * gère le mode debug.<br>
  */
 public class Menu {
-    private Boolean modeDebug = false;
+    private Boolean modeDebug = true;
     private String persoDebug = "Guerrier";
     private int deDebug[] = {2, 4, 6};
     private ConnectionBD conn = new ConnectionBD();
@@ -21,7 +21,7 @@ public class Menu {
      * La méthode menuDemarrage propose le menu au joueur,
      * execute les méthodes en fonction de son choix.<br>
      *
-     * @param sc
+     * @param sc correspond au Scanner qui récupère le choix du joueur
      */
     public void menuDemarrage(Scanner sc) {
         if (!modeDebug) System.out.println("Pour quitter le jeu tapez Quit" +
@@ -83,8 +83,8 @@ public class Menu {
      * La méthode CreerPersonnage instancie le personnage en fonction des choix du joueur,
      * sauvegarde le personnage dans la BDD.<br>
      *
-     * @param sc
-     * @return choixPerso
+     * @param sc correspond au Scanner
+     * @return choixPerso un String qui retourne le choix du type du personnage (Guerrier ou Magicien)
      */
 
     public String ChoixPersonnage(Scanner sc) {
@@ -108,9 +108,9 @@ public class Menu {
     }
 
     /**
-     * @param sc
-     * @param choixPerso
-     * @return personnage
+     * @param sc correspond au Scanner qui permet au joueur de rentrer le nom du personnage
+     * @param choixPerso est un String indiquant le type de personnage
+     * @return personnage est une instance de la classe Guerrier ou Magicien
      */
     public Hero CreerPersonnage(Scanner sc, String choixPerso) {
         if (!modeDebug) System.out.println("Entrez le nom de votre personnage");
@@ -130,7 +130,7 @@ public class Menu {
      * La méthode ModifierPersonnage modifie le nom du personnage
      * et sauvegarde la modification dans la BDD <br>
      *
-     * @param sc
+     * @param sc correspond au Scanner qui permet au joueur de rentrer le nouveau nom du personnage
      */
 
     public void ModifierPersonnage(Scanner sc) {
@@ -145,8 +145,8 @@ public class Menu {
      * La méthode JouerPartie gère le lancement des dés,
      * l'avancement du personnage et la fin de la partie.<br>
      *
-     * @param personnage
-     * @param sc
+     * @param personnage correspond au personnage crée qui est une instance de la classe Guerrier ou Magicien
+     * @param sc correspond au Scanner qui permet au joueur de lancer les dés
      */
     public void JouerPartie(Hero personnage, Scanner sc) {
         Plateau plateau = new Plateau();
@@ -175,6 +175,12 @@ public class Menu {
         } while (personnage.getNumeroCaseCourante() < plateau.getDerniereCase());
     }
 
+    /**
+     *
+     * @param personnage correspond au personnage crée qui est une instance de la classe Guerrier ou Magicien
+     * @param compteurTourDebug est un int qui est utilisé pour parcourir le tableau des valeurs de dés en mode Debug
+     * @param sc correspond au Scanner qui permet au joueur de lancer les dés
+     */
     public void LanceDe(Hero personnage, int compteurTourDebug, Scanner sc) {
         if (personnage.isDroitLancerDe()) {
             System.out.println("Pour lancer le dés tapez De");

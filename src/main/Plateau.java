@@ -71,6 +71,8 @@ public class Plateau {
                 }
             } while (caseK.getCompteurCase() < caseK.getMaxCase());
         }
+
+
     }
 
     //Getters

@@ -108,13 +108,15 @@ public class ConnectionBD {
         int response = sc.nextInt();
         sc.nextLine();
         Hero personnage = new Guerrier();
+        Statement state = null;
+        ResultSet result = null;
 
         try {
 
             //Création d'un objet Statement
-            Statement state = this.conn.createStatement();
+            state = this.conn.createStatement();
             String query = "SELECT * FROM hero WHERE id=" + response;
-            ResultSet result = state.executeQuery(query);
+            result = state.executeQuery(query);
             ResultSetMetaData resultMeta = result.getMetaData();
 
             while (result.next()) {
@@ -132,14 +134,25 @@ public class ConnectionBD {
                     personnage = new Magicien(nom, vie, force, response, bouclier, armeNom);
                 }
             }
-            result.close();
-            state.close();
+
         } catch (Exception ex) {
             ex.printStackTrace();
+        } finally {
+            close(state, result);
         }
         System.out.println(personnage.toString());
         return personnage;
 
+    }
+
+    private void close(Statement state, ResultSet result) {
+        try {
+            if (state != null) state.close();
+            if (result != null) result.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
     }
 
     /**

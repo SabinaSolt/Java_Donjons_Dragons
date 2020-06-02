@@ -10,24 +10,29 @@ import potions.*;
  * aide à générer le plâteau de jeu.<br>
  */
 public enum ListCaseSpec {
-    Dragon(4, 0),
-    Sorcier(10, 0),
-    Gobelin(10, 0),
-    Massue(5, 0),
-    Epee(4, 0),
-    Eclair(5, 0),
-    BouleFeu(2, 0),
-    PotionStandard(6, 2),
-    PotionGrande(2, 0);
+    Dragon(4, 0, "Dragon"),
+    Sorcier(10, 0, "Sorcier"),
+    Gobelin(10, 0, "Gobelin"),
+    Massue(5, 0, "Massue"),
+    Epee(4, 0, "Epee"),
+    Eclair(5, 0, "Eclair"),
+    BouleFeu(2, 0, "BouleFeu"),
+    PotionStandard(6, 0, "PotionStandard"),
+    PotionGrande(2, 0, "PotionGrande");
 
 
     private int maxCase = 0;
     private int compteurCase = 0;
+    private final String name;
 
-
-    ListCaseSpec(int maxCase, int compteurCase) {
+    ListCaseSpec(int maxCase, int compteurCase, String name) {
         this.maxCase = maxCase;
         this.compteurCase = compteurCase;
+        this.name=name;
+    }
+
+    public String getName() {
+        return name;
     }
 
 
